@@ -1,3 +1,4 @@
+
 class Product {
   final String title;
   final double price;

@@ -13,4 +13,13 @@ class ProductViewModel {
       throw Exception('Error fetching products: $e');
     }
   }
+
+  Future<List<Product>> fetchCartProducts(List<Product> products) async{
+    return products;
+  }
+
+  Future<List<Product>> getProductByCategory(Future<List<Product>> productsFuture, String category) async {
+    final products = await productsFuture;
+    return category!="all"? products.where((product) => product.category == category).toList(): getProducts();
+  }
 }

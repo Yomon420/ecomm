@@ -2,10 +2,17 @@ import 'package:flutter/material.dart';
 
 import '../models/product.dart';
 
-class CustomCard extends StatelessWidget {
+class CustomCard extends StatefulWidget {
   final Product product;
-  const CustomCard({super.key, required this.product});
+  final String category;
+  final void Function(List<Product>) getCart;
+  const CustomCard({super.key, required this.product, required this.category, required this.getCart});
 
+  @override
+  State<CustomCard> createState() => _CustomCardState();
+}
+List<Product> cart = [];
+class _CustomCardState extends State<CustomCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -36,7 +43,7 @@ class CustomCard extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: Image.network(
-                  product.imageUrl,
+                  widget.product.imageUrl,
                   height: 120,
                   width: double.infinity,
                   fit: BoxFit.fitHeight,
@@ -45,7 +52,7 @@ class CustomCard extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              product.title,
+              widget.product.title,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(
@@ -60,7 +67,7 @@ class CustomCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "\$${product.price}",
+                  "\$${widget.product.price}",
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -69,11 +76,17 @@ class CustomCard extends StatelessWidget {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    color: const Color(0xFF2E7D32),
+                    color: cart.contains(widget.product)? Colors.red :const Color(0xFF2E7D32),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        cart.add(widget.product);
+                        print(cart.length);
+                        widget.getCart(cart);
+                      });
+                    },
                     icon: const Icon(
                       Icons.shopping_cart_outlined,
                       color: Colors.white,
