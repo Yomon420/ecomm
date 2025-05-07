@@ -1,5 +1,4 @@
 import 'package:ecomm/models/product.dart';
-import 'package:ecomm/view_models/product_view_model.dart';
 import 'package:ecomm/widget/custom_card.dart';
 import 'package:flutter/material.dart';
 
@@ -12,11 +11,37 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-  ProductViewModel productViewModel = ProductViewModel();
+
+  @override
+  void initState() {
+    super.initState();
+    getTotalPrice();
+  }
+
+  double getTotalPrice() {
+    double total = 0;
+    for (var product in widget.cartProducts) {
+      total += product.price;
+    }
+    return total;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Cart')),
+      appBar: AppBar(
+        title: const Text('Cart'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh_outlined),
+            onPressed: () {
+              setState(() {
+                widget.cartProducts;
+              });
+            },
+          ),
+        ],
+        ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -42,6 +67,61 @@ class _CartPageState extends State<CartPage> {
               ),
             ),
           ),
+          const SizedBox(height: 10),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Total',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  '\$${getTotalPrice()}',
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom:10.0),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Container(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom( 
+                      backgroundColor: Colors.white70,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    onPressed: (){
+                      // Navigator.push(context, MaterialPageRoute(
+                      //   builder: (context) => CheckoutPage(cartProducts: widget.cartProducts),
+                      // ));
+                    },
+                    child: const Text(
+                      'Checkout',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );
