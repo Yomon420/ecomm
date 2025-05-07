@@ -4,7 +4,6 @@ import 'package:ecomm/widget/custom_card.dart';
 import 'package:flutter/material.dart';
 import '../models/product.dart';
 
-List<Product> _cart = [];
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
   static final String id = "Home Page";
@@ -16,8 +15,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   ProductViewModel productViewModel = ProductViewModel();
   //int _selectedIndex = 0;
-  String selectedItem = "";
-  
+  String selectedItem = "all";
+  List<Product> _cart = [];
+
   void getCart(List<Product> cart){
     _cart = cart;
   }

@@ -2,10 +2,15 @@ import 'package:ecomm/models/product.dart';
 import 'package:ecomm/widget/custom_card.dart';
 import 'package:flutter/material.dart';
 
-class CartPage extends StatelessWidget{
+class CartPage extends StatefulWidget{
   const CartPage({super.key, required this.cartProducts});
   final List <Product> cartProducts;
 
+  @override
+  State<CartPage> createState() => _CartPageState();
+}
+
+class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,9 +31,9 @@ class CartPage extends StatelessWidget{
                             mainAxisSpacing: 16,
                             childAspectRatio: 0.63,
                           ),
-                      itemCount: cartProducts.length,
+                      itemCount: widget.cartProducts.length,
                       itemBuilder: (context, index) {
-                        final product = cartProducts[index];
+                        final product = widget.cartProducts[index];
                         return CustomCard(product: product, category: "all",getCart: (_) {},);
                       },
                     ),

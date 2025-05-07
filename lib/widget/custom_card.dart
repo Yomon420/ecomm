@@ -11,15 +11,26 @@ class CustomCard extends StatefulWidget {
   @override
   State<CustomCard> createState() => _CustomCardState();
 }
+
 List<Product> cart = [];
+
 class _CustomCardState extends State<CustomCard> {
+  Color changeColor(){
+    for(int i=0; i<cart.length; i++){
+      if(cart[i].title == widget.product.title){
+        return Colors.red;
+      }
+    }
+    return const Color(0xFF2E7D32);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       elevation: 8,
       surfaceTintColor: Colors.white,
-      shadowColor: Colors.black.withOpacity(0.1),
+      shadowColor: Colors.black.withAlpha(1),
       color: Colors.white,
       child: Container(
         padding: const EdgeInsets.all(16),
@@ -33,7 +44,7 @@ class _CustomCardState extends State<CustomCard> {
                 color: Colors.white,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.withOpacity(0.2),
+                    color: Colors.grey.withAlpha(2),
                     spreadRadius: 1,
                     blurRadius: 8,
                     offset: const Offset(0, 2),
@@ -76,15 +87,21 @@ class _CustomCardState extends State<CustomCard> {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    color: cart.contains(widget.product)? Colors.red :const Color(0xFF2E7D32),
+                    color: changeColor(),
+                    //color: cart.contains(widget.product)? Colors.red :const Color(0xFF2E7D32),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: IconButton(
                     onPressed: () {
                       setState(() {
-                        cart.add(widget.product);
-                        print(cart.length);
-                        widget.getCart(cart);
+                        if(cart.contains(widget.product)){
+                          cart.remove(widget.product);
+                          print(cart.length);
+                        }else{
+                          cart.add(widget.product);
+                          print(cart.length);
+                          widget.getCart(cart);
+                        }
                       });
                     },
                     icon: const Icon(
