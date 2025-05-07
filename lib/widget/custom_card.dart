@@ -5,19 +5,19 @@ import '../models/product.dart';
 class CustomCard extends StatefulWidget {
   final Product product;
   final String category;
-  final void Function(List<Product>) getCart;
-  const CustomCard({super.key, required this.product, required this.category, required this.getCart});
+  //final void Function(List<Product>) getCart;
+  final List<Product> cart;
+  const CustomCard({super.key, required this.product, required this.category, required this.cart});
 
   @override
   State<CustomCard> createState() => _CustomCardState();
 }
 
-List<Product> cart = [];
-
 class _CustomCardState extends State<CustomCard> {
   Color changeColor(){
-    for(int i=0; i<cart.length; i++){
-      if(cart[i].title == widget.product.title){
+    print(widget.cart.length);
+    for(int i=0; i<widget.cart.length; i++){
+      if(widget.cart[i].title == widget.product.title){
         return Colors.red;
       }
     }
@@ -88,19 +88,17 @@ class _CustomCardState extends State<CustomCard> {
                 Container(
                   decoration: BoxDecoration(
                     color: changeColor(),
-                    //color: cart.contains(widget.product)? Colors.red :const Color(0xFF2E7D32),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: IconButton(
                     onPressed: () {
                       setState(() {
-                        if(cart.contains(widget.product)){
-                          cart.remove(widget.product);
-                          print(cart.length);
+                        if(widget.cart.contains(widget.product)){
+                          widget.cart.remove(widget.product);
+                          print(widget.cart.length);
                         }else{
-                          cart.add(widget.product);
-                          print(cart.length);
-                          widget.getCart(cart);
+                          widget.cart.add(widget.product);
+                          print(widget.cart.length);
                         }
                       });
                     },

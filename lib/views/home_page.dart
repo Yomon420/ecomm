@@ -14,13 +14,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   ProductViewModel productViewModel = ProductViewModel();
-  //int _selectedIndex = 0;
   String selectedItem = "all";
-  List<Product> _cart = [];
-
-  void getCart(List<Product> cart){
-    _cart = cart;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +42,7 @@ class _HomePageState extends State<HomePage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CartPage(cartProducts: _cart,),
+                  builder: (context) => CartPage(cartProducts: productViewModel.displayCartProducts(),),
                 ),
               );
             },
@@ -152,7 +146,7 @@ class _HomePageState extends State<HomePage> {
                       itemCount: products.length,
                       itemBuilder: (context, index) {
                         final product = products[index];
-                        return CustomCard(product: product, category: selectedItem,getCart: getCart,);
+                        return CustomCard(product: product, category: selectedItem,cart: productViewModel.displayCartProducts(),);
                       },
                     ),
                   ),
@@ -162,59 +156,6 @@ class _HomePageState extends State<HomePage> {
           }
         },
       ),
-      // bottomNavigationBar: Container(
-      //   decoration: BoxDecoration(
-      //     color: Colors.white,
-      //     boxShadow: [
-      //       BoxShadow(
-      //         color: Colors.black.withAlpha(1),
-      //         offset: const Offset(0, -2),
-      //         blurRadius: 8,
-      //       ),
-      //     ],
-      //   ),
-      //   child: BottomNavigationBar(
-      //     currentIndex: _selectedIndex,
-      //     onTap: (index) {
-      //       setState(() {
-      //         _selectedIndex = index;
-      //       });
-      //       if(index == 0){
-      //         Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
-      //       }
-      //       else{
-      //         Navigator.push(context, MaterialPageRoute(builder: (context) => CartPage(cartProducts: _cart,)));
-      //       }
-      //     },
-          
-      //     backgroundColor: Colors.white,
-      //     selectedItemColor: const Color(0xFF2E7D32),
-      //     unselectedItemColor: Colors.grey,
-      //     selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),
-      //     items: const [
-      //       BottomNavigationBarItem(
-      //         icon: Icon(Icons.home_outlined),
-      //         activeIcon: Icon(Icons.home),
-      //         label: "Home",
-      //       ),
-      //       BottomNavigationBarItem(
-      //         icon: Icon(Icons.shopping_cart_outlined),
-      //         activeIcon: Icon(Icons.shopping_cart),
-      //         label: "Cart",
-      //       ),
-      //       // BottomNavigationBarItem(
-      //       //   icon: Icon(Icons.favorite_outline),
-      //       //   activeIcon: Icon(Icons.favorite),
-      //       //   label: "Favorites",
-      //       // ),
-      //       // BottomNavigationBarItem(
-      //       //   icon: Icon(Icons.person_outline),
-      //       //   activeIcon: Icon(Icons.person),
-      //       //   label: "Profile",
-      //       // ),
-      //     ],
-      //   ),
-      // ),
     );
   }
 }

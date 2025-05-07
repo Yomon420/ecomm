@@ -1,16 +1,18 @@
 import 'package:ecomm/models/product.dart';
+import 'package:ecomm/view_models/product_view_model.dart';
 import 'package:ecomm/widget/custom_card.dart';
 import 'package:flutter/material.dart';
 
 class CartPage extends StatefulWidget{
   const CartPage({super.key, required this.cartProducts});
   final List <Product> cartProducts;
-
+  
   @override
   State<CartPage> createState() => _CartPageState();
 }
 
 class _CartPageState extends State<CartPage> {
+  ProductViewModel productViewModel = ProductViewModel();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +36,7 @@ class _CartPageState extends State<CartPage> {
                       itemCount: widget.cartProducts.length,
                       itemBuilder: (context, index) {
                         final product = widget.cartProducts[index];
-                        return CustomCard(product: product, category: "all",getCart: (_) {},);
+                        return CustomCard(product: product, category: "all",cart: widget.cartProducts,);
                       },
                     ),
                   ),

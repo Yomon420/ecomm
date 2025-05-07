@@ -14,8 +14,16 @@ class ProductViewModel {
     }
   }
 
-  Future<List<Product>> fetchCartProducts(List<Product> products) async{
-    return products;
+  void addProduct(Product product) {
+    productRepository.addToCart(product);
+  }
+
+  void removeProduct(Product product) {
+    productRepository.removeFromCart(product);
+  }
+
+  List<Product> displayCartProducts() {
+    return productRepository.getCartProducts();
   }
 
   Future<List<Product>> getProductByCategory(Future<List<Product>> productsFuture, String category) async {

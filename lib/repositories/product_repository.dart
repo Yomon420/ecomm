@@ -5,7 +5,7 @@ import '../models/product.dart'; // Product model file
 class ProductRepository {
   // The API URL
   final String apiUrl = 'https://fakestoreapi.com/products';
-
+  List<Product> _cartProducts = [];
   // Method to fetch products from API
   Future<List<Product>> fetchProducts() async {
     try {
@@ -26,5 +26,17 @@ class ProductRepository {
       // Catch any errors and throw them
       throw Exception('Error fetching products: $e');
     }
+  }
+
+  void addToCart(Product product) {
+    _cartProducts.add(product);
+  }
+
+  void removeFromCart(Product product) {
+    _cartProducts.remove(product);
+  }
+
+  List<Product> getCartProducts() {
+    return _cartProducts;
   }
 }
