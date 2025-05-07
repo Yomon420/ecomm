@@ -25,6 +25,9 @@ class _HomePageState extends State<HomePage> {
       "electronics",
       "women's clothing",
     ];
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
       appBar: AppBar(
@@ -155,11 +158,11 @@ class _HomePageState extends State<HomePage> {
                     padding: const EdgeInsets.all(16),
                     child: GridView.builder(
                       gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
+                          SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: MediaQuery.of(context).size.width > 600 ? 4 : 2,
                             crossAxisSpacing: 16,
                             mainAxisSpacing: 16,
-                            childAspectRatio: 0.63,
+                            childAspectRatio: screenWidth / screenHeight * 1.3,
                           ),
                       itemCount: products.length,
                       itemBuilder: (context, index) {
