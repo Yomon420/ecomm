@@ -4,13 +4,13 @@ import '../models/product.dart'; // Product model file
 
 class ProductRepository {
   // The API URL
-  final String apiUrl = 'https://fakestoreapi.com/products';
-  List<Product> _cartProducts = [];
+  final String _apiUrl = 'https://fakestoreapi.com/products';
+  final List<Product> _cartProducts = [];
   // Method to fetch products from API
   Future<List<Product>> fetchProducts() async {
     try {
       // Make the HTTP GET request
-      final response = await http.get(Uri.parse(apiUrl));
+      final response = await http.get(Uri.parse(_apiUrl));
 
       // Check if the request was successful
       if (response.statusCode == 200) {
@@ -18,7 +18,9 @@ class ProductRepository {
         final List<dynamic> data = json.decode(response.body);
 
         // Convert the JSON into Product objects
-        return data.map((jsonProduct) => Product.fromJson(jsonProduct)).toList();
+        return data
+            .map((jsonProduct) => Product.fromJson(jsonProduct))
+            .toList();
       } else {
         throw Exception('Failed to load products');
       }

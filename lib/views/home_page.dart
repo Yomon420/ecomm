@@ -13,12 +13,18 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  ProductViewModel productViewModel = ProductViewModel();
-  String selectedItem = "all";
+  final ProductViewModel _productViewModel = ProductViewModel();
+  String _selectedItem = "all";
 
   @override
   Widget build(BuildContext context) {
-    final List<String> items = ["all", "men's clothing", "jewelery", "electronics","women's clothing"];
+    final List<String> items = [
+      "all",
+      "men's clothing",
+      "jewelery",
+      "electronics",
+      "women's clothing",
+    ];
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
       appBar: AppBar(
@@ -42,7 +48,10 @@ class _HomePageState extends State<HomePage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CartPage(cartProducts: productViewModel.displayCartProducts(),),
+                  builder:
+                      (context) => CartPage(
+                        cartProducts: _productViewModel.displayCartProducts(),
+                      ),
                 ),
               );
             },
@@ -50,7 +59,13 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: FutureBuilder<List<Product>>(
-        future: selectedItem.isEmpty? productViewModel.getProducts(): productViewModel.getProductByCategory(productViewModel.getProducts(), selectedItem),
+        future:
+            _selectedItem.isEmpty
+                ? _productViewModel.getProducts()
+                : _productViewModel.getProductByCategory(
+                  _productViewModel.getProducts(),
+                  _selectedItem,
+                ),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -97,7 +112,10 @@ class _HomePageState extends State<HomePage> {
                             padding: const EdgeInsets.only(right: 12),
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: selectedItem == item? Colors.red:const Color(0xFF2E7D32),
+                                backgroundColor:
+                                    _selectedItem == item
+                                        ? Colors.red
+                                        : const Color(0xFF2E7D32),
                                 side: BorderSide(
                                   width: 3,
                                   color: Colors.yellow,
@@ -114,7 +132,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                               onPressed: () {
                                 setState(() {
-                                  selectedItem = item;
+                                  _selectedItem = item;
                                 });
                               },
                               child: Text(
@@ -146,7 +164,11 @@ class _HomePageState extends State<HomePage> {
                       itemCount: products.length,
                       itemBuilder: (context, index) {
                         final product = products[index];
-                        return CustomCard(product: product, category: selectedItem,cart: productViewModel.displayCartProducts(),);
+                        return CustomCard(
+                          product: product,
+                          category: _selectedItem,
+                          cart: _productViewModel.displayCartProducts(),
+                        );
                       },
                     ),
                   ),

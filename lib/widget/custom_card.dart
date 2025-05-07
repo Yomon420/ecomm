@@ -5,19 +5,23 @@ import '../models/product.dart';
 class CustomCard extends StatefulWidget {
   final Product product;
   final String category;
-  //final void Function(List<Product>) getCart;
   final List<Product> cart;
-  const CustomCard({super.key, required this.product, required this.category, required this.cart});
+  const CustomCard({
+    super.key,
+    required this.product,
+    required this.category,
+    required this.cart,
+  });
 
   @override
   State<CustomCard> createState() => _CustomCardState();
 }
 
 class _CustomCardState extends State<CustomCard> {
-  Color changeColor(){
+  Color changeColor() {
     print(widget.cart.length);
-    for(int i=0; i<widget.cart.length; i++){
-      if(widget.cart[i].title == widget.product.title){
+    for (int i = 0; i < widget.cart.length; i++) {
+      if (widget.cart[i].title == widget.product.title) {
         return Colors.red;
       }
     }
@@ -93,10 +97,10 @@ class _CustomCardState extends State<CustomCard> {
                   child: IconButton(
                     onPressed: () {
                       setState(() {
-                        if(widget.cart.contains(widget.product)){
+                        if (widget.cart.contains(widget.product)) {
                           widget.cart.remove(widget.product);
                           print(widget.cart.length);
-                        }else{
+                        } else {
                           widget.cart.add(widget.product);
                           print(widget.cart.length);
                         }

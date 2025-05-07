@@ -26,8 +26,13 @@ class ProductViewModel {
     return productRepository.getCartProducts();
   }
 
-  Future<List<Product>> getProductByCategory(Future<List<Product>> productsFuture, String category) async {
+  Future<List<Product>> getProductByCategory(
+    Future<List<Product>> productsFuture,
+    String category,
+  ) async {
     final products = await productsFuture;
-    return category!="all"? products.where((product) => product.category == category).toList(): getProducts();
+    return category != "all"
+        ? products.where((product) => product.category == category).toList()
+        : getProducts();
   }
 }

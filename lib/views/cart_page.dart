@@ -3,10 +3,10 @@ import 'package:ecomm/view_models/product_view_model.dart';
 import 'package:ecomm/widget/custom_card.dart';
 import 'package:flutter/material.dart';
 
-class CartPage extends StatefulWidget{
+class CartPage extends StatefulWidget {
   const CartPage({super.key, required this.cartProducts});
-  final List <Product> cartProducts;
-  
+  final List<Product> cartProducts;
+
   @override
   State<CartPage> createState() => _CartPageState();
 }
@@ -16,33 +16,34 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Cart'),
-      ),
+      appBar: AppBar(title: const Text('Cart')),
       body: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 16,
-                            mainAxisSpacing: 16,
-                            childAspectRatio: 0.63,
-                          ),
-                      itemCount: widget.cartProducts.length,
-                      itemBuilder: (context, index) {
-                        final product = widget.cartProducts[index];
-                        return CustomCard(product: product, category: "all",cart: widget.cartProducts,);
-                      },
-                    ),
-                  ),
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
+                  childAspectRatio: 0.63,
                 ),
-              ],
+                itemCount: widget.cartProducts.length,
+                itemBuilder: (context, index) {
+                  final product = widget.cartProducts[index];
+                  return CustomCard(
+                    product: product,
+                    category: "all",
+                    cart: widget.cartProducts,
+                  );
+                },
+              ),
             ),
+          ),
+        ],
+      ),
     );
   }
 }
