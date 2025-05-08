@@ -42,7 +42,7 @@ class ProductRepository {
     return _cartProducts;
   }
 
-  void flashCart(){
+  void emptyCart(){
     _cartProducts = [];
   }
 }

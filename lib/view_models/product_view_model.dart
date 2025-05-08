@@ -42,7 +42,7 @@ class ProductViewModel {
   }
 
   void removeCart(){
-    productRepository.flashCart();
+    productRepository.emptyCart();
   }
 
   Future<List<Product>> getProductByCategory(
