@@ -27,6 +27,9 @@ class _CustomCardState extends State<CustomCard> {
         return Colors.red;
       }
     }
+    if(widget.product.quantity == 0){
+      return Colors.grey;
+    }
     return const Color(0xFF2E7D32);
   }
 
@@ -99,13 +102,15 @@ class _CustomCardState extends State<CustomCard> {
                   child: IconButton(
                     onPressed: () {
                       setState(() {
-                        if (widget.cart.displayCartProducts().contains(widget.product)) {
-                          widget.cart.removeProductFromCart(widget.product);
-                          print(widget.cart.displayCartProducts().length);
-                        } else {
-                          widget.cart.displayCartProducts().add(widget.product);
-                          print(widget.cart.displayCartProducts().length);
-                        }
+                        if(widget.product.quantity != 0)
+                        {
+                          if (widget.cart.displayCartProducts().contains(widget.product)) {
+                            widget.cart.removeProductFromCart(widget.product);
+                            print(widget.cart.displayCartProducts().length);
+                          } else {
+                            widget.cart.displayCartProducts().add(widget.product);
+                            print(widget.cart.displayCartProducts().length);
+                          }}
                       });
                     },
                     icon: const Icon(
@@ -120,7 +125,7 @@ class _CustomCardState extends State<CustomCard> {
               ],
             ),
             Text(
-              "x${widget.product.quantity}",
+              widget.product.quantity != 0?"x${widget.product.quantity}":"Out of Stock",
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
              style: const TextStyle(
