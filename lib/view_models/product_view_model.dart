@@ -26,11 +26,10 @@ class ProductViewModel {
     return productRepository.getCartProducts();
   }
 
-  double totalPrice(List count){
+  double getTotalPrice(){
     double total = 0;
-    int i = 0;
     for (var product in productRepository.getCartProducts()) {
-      total += product.price * count[i];
+      total += product.price * product.count;
     }
     return total;
   }

@@ -9,6 +9,7 @@ class Product {
   final double rating;
   final int ratingCount;
   final int quantity;
+  int count;
 
   Product({
     required this.title,
@@ -19,6 +20,7 @@ class Product {
     required this.rating,
     required this.ratingCount,
     required this.quantity,
+    required this.count,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
@@ -32,6 +34,7 @@ class Product {
       rating: (json['rating']['rate'] as num).toDouble(),
       ratingCount: json['rating']['count'],
       quantity: random.nextInt(10) + 1,
+      count: 0,
     );
   }
 }

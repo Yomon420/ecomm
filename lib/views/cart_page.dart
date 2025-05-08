@@ -12,19 +12,6 @@ class CartPage extends StatefulWidget {
 
 class _CartPageState extends State<CartPage> {
   var isLoading = false;
-  @override
-  void initState() {
-    super.initState();
-    getTotalPrice();
-  }
-
-  double getTotalPrice() {
-    double total = 0;
-    for (var product in widget.cartProducts.displayCartProducts()) {
-      total += product.price;
-    }
-    return total;
-  }
 
   Future<void> refreshPage() async {
     setState(() {
@@ -36,6 +23,12 @@ class _CartPageState extends State<CartPage> {
     });
   }
 
+  double getTotalPrice(){
+    setState(() {
+      widget.cartProducts.getTotalPrice();
+    });
+    return widget.cartProducts.getTotalPrice();
+  }
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;

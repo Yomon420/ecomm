@@ -17,7 +17,7 @@ class CustomCardCart extends StatefulWidget {
   @override
   State<CustomCardCart> createState() => _CustomCardCartState();
 }
-int count = 0;
+
 class _CustomCardCartState extends State<CustomCardCart> {
   Color changeColor() {
     var prod = widget.cart.displayCartProducts();
@@ -137,8 +137,8 @@ class _CustomCardCartState extends State<CustomCardCart> {
                   child: IconButton(
                     onPressed: (){
                       setState(() {
-                        if(count > 0){
-                          count--;
+                        if(widget.product.count > 0){
+                          widget.product.count--;
                         }
                       });
                     },
@@ -148,7 +148,7 @@ class _CustomCardCartState extends State<CustomCardCart> {
                 Padding(
                   padding: const EdgeInsets.only(left:2.0),
                   child: Text(
-                    "$count",
+                    "${widget.product.count}",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
@@ -159,8 +159,8 @@ class _CustomCardCartState extends State<CustomCardCart> {
                   child: IconButton(
                     onPressed: (){
                       setState(() {
-                        if(widget.product.quantity > count){
-                          count++;
+                        if(widget.product.quantity > widget.product.count){
+                          widget.product.count++;
                         }
                       });
                     },
