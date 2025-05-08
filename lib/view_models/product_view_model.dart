@@ -14,11 +14,11 @@ class ProductViewModel {
     }
   }
 
-  void addProduct(Product product) {
+  void addProductToCart(Product product) {
     productRepository.addToCart(product);
   }
 
-  void removeProduct(Product product) {
+  void removeProductFromCart(Product product) {
     productRepository.removeFromCart(product);
   }
 
@@ -33,6 +33,13 @@ class ProductViewModel {
     }
     return total;
   }
+
+  void processProducts(){
+    for (var product in productRepository.getCartProducts()) {
+      product.quantity -= product.count;
+    }
+  }
+
   Future<List<Product>> getProductByCategory(
     Future<List<Product>> productsFuture,
     String category,

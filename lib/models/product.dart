@@ -8,7 +8,7 @@ class Product {
   final String imageUrl;
   final double rating;
   final int ratingCount;
-  final int quantity;
+  int quantity;
   int count;
 
   Product({

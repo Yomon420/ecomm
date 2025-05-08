@@ -100,7 +100,7 @@ class _CustomCardCartState extends State<CustomCardCart> {
                     onPressed: () {
                       setState(() {
                         if (widget.cart.displayCartProducts().contains(widget.product)) {
-                          widget.cart.removeProduct(widget.product);
+                          widget.cart.removeProductFromCart(widget.product);
                           print(widget.cart.displayCartProducts().length);
                         } else {
                           widget.cart.displayCartProducts().add(widget.product);

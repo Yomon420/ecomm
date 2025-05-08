@@ -65,6 +65,7 @@ class _HomePageState extends State<HomePage> {
                   builder:
                       (context) => CartPage(
                         cartProducts: widget.productViewModel,
+                        allProducts: widget.allProducts,
                       ),
                 ),
               );

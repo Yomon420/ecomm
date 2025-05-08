@@ -1,10 +1,12 @@
 import 'package:ecomm/view_models/product_view_model.dart';
+import 'package:ecomm/views/intro.dart';
 import 'package:ecomm/widget/custom_card_cart.dart';
 import 'package:flutter/material.dart';
 
 class CartPage extends StatefulWidget {
-  const CartPage({super.key, required this.cartProducts});
+  const CartPage({super.key, required this.cartProducts, required this.allProducts});
   final ProductViewModel cartProducts;
+  final allProducts;
 
   @override
   State<CartPage> createState() => _CartPageState();
@@ -23,12 +25,6 @@ class _CartPageState extends State<CartPage> {
     });
   }
 
-  double getTotalPrice(){
-    setState(() {
-      widget.cartProducts.getTotalPrice();
-    });
-    return widget.cartProducts.getTotalPrice();
-  }
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
@@ -96,7 +92,7 @@ class _CartPageState extends State<CartPage> {
                           ),
                         ),
                         Text(
-                          '\$${getTotalPrice()}',
+                          '\$${widget.cartProducts.getTotalPrice()}',
                           style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -121,9 +117,9 @@ class _CartPageState extends State<CartPage> {
                               ),
                             ),
                             onPressed: () {
-                              // Navigator.push(context, MaterialPageRoute(
-                              //   builder: (context) => CheckoutPage(cartProducts: widget.cartProducts),
-                              // ));
+                              Navigator.push(context, MaterialPageRoute(
+                                builder: (context) => Intro(productViewModel: widget.cartProducts,allProducts: widget.allProducts,),
+                              ));
                             },
                             child: const Text(
                               'Checkout',
