@@ -117,9 +117,12 @@ class _CartPageState extends State<CartPage> {
                               ),
                             ),
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(
-                                builder: (context) => Intro(productViewModel: widget.cartProducts,allProducts: widget.allProducts,),
-                              ));
+                              if(widget.cartProducts.displayCartProducts().isNotEmpty)
+                              {
+                                  Navigator.push(context, MaterialPageRoute(
+                                  builder: (context) => Intro(productViewModel: widget.cartProducts,allProducts: widget.allProducts,),
+                                ));
+                              }
                             },
                             child: const Text(
                               'Checkout',
