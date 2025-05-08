@@ -31,6 +31,7 @@ class ProductViewModel {
     for (var product in productRepository.getCartProducts()) {
       total += product.price * product.count;
     }
+    total = (total * 100).round() / 100;
     return total;
   }
 
@@ -38,6 +39,10 @@ class ProductViewModel {
     for (var product in productRepository.getCartProducts()) {
       product.quantity -= product.count;
     }
+  }
+
+  void removeCart(){
+    productRepository.flashCart();
   }
 
   Future<List<Product>> getProductByCategory(
