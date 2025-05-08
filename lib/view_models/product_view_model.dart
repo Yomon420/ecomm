@@ -26,6 +26,14 @@ class ProductViewModel {
     return productRepository.getCartProducts();
   }
 
+  double totalPrice(List count){
+    double total = 0;
+    int i = 0;
+    for (var product in productRepository.getCartProducts()) {
+      total += product.price * count[i];
+    }
+    return total;
+  }
   Future<List<Product>> getProductByCategory(
     Future<List<Product>> productsFuture,
     String category,

@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 
 import '../models/product.dart';
 
-class CustomCard extends StatefulWidget {
+class CustomCardCart extends StatefulWidget {
   final Product product;
   final String category;
   final ProductViewModel cart;
-  const CustomCard({
+  const CustomCardCart({
     super.key,
     required this.product,
     required this.category,
@@ -15,10 +15,10 @@ class CustomCard extends StatefulWidget {
   });
 
   @override
-  State<CustomCard> createState() => _CustomCardState();
+  State<CustomCardCart> createState() => _CustomCardCartState();
 }
-
-class _CustomCardState extends State<CustomCard> {
+int count = 0;
+class _CustomCardCartState extends State<CustomCardCart> {
   Color changeColor() {
     var prod = widget.cart.displayCartProducts();
     print(prod.length);
@@ -29,7 +29,7 @@ class _CustomCardState extends State<CustomCard> {
     }
     return const Color(0xFF2E7D32);
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -39,7 +39,7 @@ class _CustomCardState extends State<CustomCard> {
       shadowColor: Colors.black.withAlpha(1),
       color: Colors.white,
       child: Container(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(10),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -119,15 +119,55 @@ class _CustomCardState extends State<CustomCard> {
                 ),
               ],
             ),
-            Text(
-              "x${widget.product.quantity}",
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-             style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF2E7D32),
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  "x${widget.product.quantity}",
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                 style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF2E7D32),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left:15.0),
+                  child: IconButton(
+                    onPressed: (){
+                      setState(() {
+                        if(count > 0){
+                          count--;
+                        }
+                      });
+                    },
+                    icon: Icon(Icons.remove)
+                    ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left:2.0),
+                  child: Text(
+                    "$count",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                    )
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left:2.0),
+                  child: IconButton(
+                    onPressed: (){
+                      setState(() {
+                        if(widget.product.quantity > count){
+                          count++;
+                        }
+                      });
+                    },
+                    icon: Icon(Icons.add)
+                  ),
+                ),
+              ],
             ),
           ],
         ),
