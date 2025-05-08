@@ -1,17 +1,16 @@
-import 'package:ecomm/models/product.dart';
+import 'package:ecomm/view_models/product_view_model.dart';
 import 'package:ecomm/widget/custom_card.dart';
 import 'package:flutter/material.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({super.key, required this.cartProducts});
-  final List<Product> cartProducts;
+  final ProductViewModel cartProducts;
 
   @override
   State<CartPage> createState() => _CartPageState();
 }
 
 class _CartPageState extends State<CartPage> {
-
   @override
   void initState() {
     super.initState();
@@ -20,14 +19,16 @@ class _CartPageState extends State<CartPage> {
 
   double getTotalPrice() {
     double total = 0;
-    for (var product in widget.cartProducts) {
+    for (var product in widget.cartProducts.displayCartProducts()) {
       total += product.price;
     }
     return total;
   }
-
+  
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cart'),
@@ -41,7 +42,7 @@ class _CartPageState extends State<CartPage> {
             },
           ),
         ],
-        ),
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -49,15 +50,17 @@ class _CartPageState extends State<CartPage> {
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount:
+                      MediaQuery.of(context).size.width > 600 ? 4 : 2,
                   crossAxisSpacing: 16,
                   mainAxisSpacing: 16,
-                  childAspectRatio: 0.63,
+                  childAspectRatio: screenWidth / screenHeight * 1.3,
                 ),
-                itemCount: widget.cartProducts.length,
+                itemCount: widget.cartProducts.displayCartProducts().length,
                 itemBuilder: (context, index) {
-                  final product = widget.cartProducts[index];
+                  final product =
+                      widget.cartProducts.displayCartProducts()[index];
                   return CustomCard(
                     product: product,
                     category: "all",
@@ -75,10 +78,7 @@ class _CartPageState extends State<CartPage> {
               children: [
                 const Text(
                   'Total',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 Text(
                   '\$${getTotalPrice()}',
@@ -91,7 +91,7 @@ class _CartPageState extends State<CartPage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom:10.0),
+            padding: const EdgeInsets.only(bottom: 10.0),
             child: Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
@@ -99,13 +99,13 @@ class _CartPageState extends State<CartPage> {
                 child: Container(
                   width: double.infinity,
                   child: ElevatedButton(
-                    style: ElevatedButton.styleFrom( 
+                    style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white70,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
-                    onPressed: (){
+                    onPressed: () {
                       // Navigator.push(context, MaterialPageRoute(
                       //   builder: (context) => CheckoutPage(cartProducts: widget.cartProducts),
                       // ));
@@ -121,7 +121,7 @@ class _CartPageState extends State<CartPage> {
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );

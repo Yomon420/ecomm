@@ -33,6 +33,6 @@ class ProductViewModel {
     final products = await productsFuture;
     return category != "all"
         ? products.where((product) => product.category == category).toList()
-        : getProducts();
+        : products;
   }
 }

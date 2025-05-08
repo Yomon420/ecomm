@@ -1,3 +1,4 @@
+import 'package:ecomm/view_models/product_view_model.dart';
 import 'package:flutter/material.dart';
 
 import '../models/product.dart';
@@ -5,7 +6,7 @@ import '../models/product.dart';
 class CustomCard extends StatefulWidget {
   final Product product;
   final String category;
-  final List<Product> cart;
+  final ProductViewModel cart;
   const CustomCard({
     super.key,
     required this.product,
@@ -19,9 +20,10 @@ class CustomCard extends StatefulWidget {
 
 class _CustomCardState extends State<CustomCard> {
   Color changeColor() {
-    print(widget.cart.length);
-    for (int i = 0; i < widget.cart.length; i++) {
-      if (widget.cart[i].title == widget.product.title) {
+    var prod = widget.cart.displayCartProducts();
+    print(prod.length);
+    for (int i = 0; i < prod.length; i++) {
+      if (prod[i].title == widget.product.title) {
         return Colors.red;
       }
     }
@@ -97,12 +99,12 @@ class _CustomCardState extends State<CustomCard> {
                   child: IconButton(
                     onPressed: () {
                       setState(() {
-                        if (widget.cart.contains(widget.product)) {
-                          widget.cart.remove(widget.product);
-                          print(widget.cart.length);
+                        if (widget.cart.displayCartProducts().contains(widget.product)) {
+                          widget.cart.displayCartProducts().remove(widget.product);
+                          print(widget.cart.displayCartProducts().length);
                         } else {
-                          widget.cart.add(widget.product);
-                          print(widget.cart.length);
+                          widget.cart.displayCartProducts().add(widget.product);
+                          print(widget.cart.displayCartProducts().length);
                         }
                       });
                     },
@@ -116,6 +118,16 @@ class _CustomCardState extends State<CustomCard> {
                   ),
                 ),
               ],
+            ),
+            Text(
+              "x${widget.product.quantity}",
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+             style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF2E7D32),
+              ),
             ),
           ],
         ),

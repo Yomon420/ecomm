@@ -1,3 +1,4 @@
+import 'dart:math';
 
 class Product {
   final String title;
@@ -7,6 +8,7 @@ class Product {
   final String imageUrl;
   final double rating;
   final int ratingCount;
+  final int quantity;
 
   Product({
     required this.title,
@@ -16,9 +18,11 @@ class Product {
     required this.imageUrl,
     required this.rating,
     required this.ratingCount,
+    required this.quantity,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
+    final random = Random();
     return Product(
       title: json['title'],
       price: (json['price'] as num).toDouble(),
@@ -27,6 +31,7 @@ class Product {
       imageUrl: json['image'],
       rating: (json['rating']['rate'] as num).toDouble(),
       ratingCount: json['rating']['count'],
+      quantity: random.nextInt(10) + 1,
     );
   }
 }

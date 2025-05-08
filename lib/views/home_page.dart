@@ -5,17 +5,17 @@ import 'package:flutter/material.dart';
 import '../models/product.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({super.key, required this.productViewModel, required this.allProducts});
+  final ProductViewModel productViewModel;
   static final String id = "Home Page";
-
+  final allProducts;
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  final ProductViewModel _productViewModel = ProductViewModel();
   String _selectedItem = "all";
-
+  
   @override
   Widget build(BuildContext context) {
     final List<String> items = [
@@ -44,6 +44,17 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
             icon: const Icon(
+              Icons.refresh_outlined,
+              color: Color(0xFF2D3142),
+            ),
+            onPressed: () {
+              setState(() {
+                widget.productViewModel;
+              });
+            },
+          ),
+          IconButton(
+            icon: const Icon(
               Icons.shopping_cart_outlined,
               color: Color(0xFF2D3142),
             ),
@@ -53,7 +64,7 @@ class _HomePageState extends State<HomePage> {
                 MaterialPageRoute(
                   builder:
                       (context) => CartPage(
-                        cartProducts: _productViewModel.displayCartProducts(),
+                        cartProducts: widget.productViewModel,
                       ),
                 ),
               );
@@ -64,9 +75,9 @@ class _HomePageState extends State<HomePage> {
       body: FutureBuilder<List<Product>>(
         future:
             _selectedItem.isEmpty
-                ? _productViewModel.getProducts()
-                : _productViewModel.getProductByCategory(
-                  _productViewModel.getProducts(),
+                ? widget.productViewModel.getProducts()
+                : widget.productViewModel.getProductByCategory(
+                  widget.allProducts,
                   _selectedItem,
                 ),
         builder: (context, snapshot) {
@@ -170,7 +181,7 @@ class _HomePageState extends State<HomePage> {
                         return CustomCard(
                           product: product,
                           category: _selectedItem,
-                          cart: _productViewModel.displayCartProducts(),
+                          cart: widget.productViewModel,
                         );
                       },
                     ),
