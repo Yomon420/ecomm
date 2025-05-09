@@ -109,7 +109,14 @@ class _CustomCardState extends State<CustomCard> {
                             } else {
                               widget.productController.displayCartProducts().add(widget.product);
                               print(widget.productController.displayCartProducts().length);
-                            }}
+                            }}else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text("Out of Stock"),
+                                    duration: Duration(milliseconds: 600),
+                                  ),
+                                );
+                              }
                         });
                       },
                       icon: const Icon(
