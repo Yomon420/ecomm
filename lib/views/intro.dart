@@ -1,4 +1,4 @@
-import 'package:ecomm/view_models/product_view_model.dart';
+import 'package:ecomm/controller/product_view_model.dart';
 import 'package:ecomm/views/home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +15,7 @@ class _IntroState extends State<Intro> {
   @override
   void initState() {
     widget.productViewModel.processProductsAfterCheckout();
-    widget.productViewModel.removeCart();
+    widget.productViewModel.removeUesrCart();
     Future.delayed(Duration(seconds: 3), () {
       Navigator.pushAndRemoveUntil(
         context,

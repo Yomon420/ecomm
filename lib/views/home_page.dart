@@ -1,4 +1,4 @@
-import 'package:ecomm/view_models/product_view_model.dart';
+import 'package:ecomm/controller/product_view_model.dart';
 import 'package:ecomm/views/cart_page.dart';
 import 'package:ecomm/widget/custom_card.dart';
 import 'package:flutter/material.dart';
@@ -94,7 +94,7 @@ class _HomePageState extends State<HomePage> {
       body: FutureBuilder<List<Product>>(
         future:
             _selectedItem.isEmpty
-                ? widget.productViewModel.getProducts()
+                ? widget.productViewModel.getAllProducts()
                 : widget.productViewModel.getProductByCategory(
                   widget.allProducts,
                   _selectedItem,

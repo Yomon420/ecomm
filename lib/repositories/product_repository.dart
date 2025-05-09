@@ -1,56 +1,37 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http; // To make HTTP requests
-import '../models/product.dart'; // Product model file
+import 'package:ecomm/models/product.dart';
+import 'package:ecomm/repositories/product_database.dart';
 
 class ProductRepository {
-  // The API URL
-  final String apiUrl = 'https://fakestoreapi.com/products';
-  List<Product> _cartProducts = [];
-  // Method to fetch products from API
-  Future<List<Product>> fetchProducts() async {
+  final ProductDatabase _database = ProductDatabase();
+
+  Future<List<Product>> getProducts() async {
     try {
-      // Make the HTTP GET request
-      final response = await http.get(Uri.parse(apiUrl));
-
-      // Check if the request was successful
-      if (response.statusCode == 200) {
-        // Decode the JSON response
-        final List<dynamic> data = json.decode(response.body);
-
-        // Convert the JSON into Product objects
-        return data
-            .map((jsonProduct) => Product.fromJson(jsonProduct))
-            .toList();
-      } else {
-        throw Exception('Failed to load products');
-      }
+      return await _database.fetchProducts();
     } catch (e) {
-      // Catch any errors and throw them
+      // Handle errors (maybe show error message to UI)
       throw Exception('Error fetching products: $e');
     }
   }
 
-  void addToCart(Product product) {
-    _cartProducts.add(product);
+  void addProductToCart(Product product) {
+    _database.addToCart(product);
   }
 
-  void removeFromCart(Product product) {
-    _cartProducts.remove(product);
-  }
-
-  List<Product> getCartProducts() {
-    return _cartProducts;
+  
+  void removeProductFromCart(Product product) {
+    _database.removeFromCart(product);
   }
 
   // For Product Page
-  bool checkCart(Product product){
-    if(_cartProducts.contains(product)){
-      return true;
-    }
-    return false;
+  bool checkProductInCart(Product product){
+    return _database.checkCart(product);
   }
 
-  void emptyCart(){
-    _cartProducts = [];
+  List<Product> displayCartProducts() {
+    return _database.getCartProducts();
+  }
+
+  void removeCart(){
+    _database.emptyCart();
   }
 }

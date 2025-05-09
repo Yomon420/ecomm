@@ -1,4 +1,4 @@
-import 'package:ecomm/view_models/product_view_model.dart';
+import 'package:ecomm/controller/product_view_model.dart';
 import 'package:ecomm/views/product_page.dart';
 import 'package:flutter/material.dart';
 
@@ -112,7 +112,7 @@ class _CustomCardCartState extends State<CustomCardCart> {
                       onPressed: () {
                         setState(() {
                           if (widget.productViewModel.displayCartProducts().contains(widget.product)) {
-                            widget.productViewModel.removeProductFromCart(widget.product);
+                            widget.productViewModel.removeProductFromUserCart(widget.product);
                             print(widget.productViewModel.displayCartProducts().length);
                           } else {
                             widget.productViewModel.displayCartProducts().add(widget.product);

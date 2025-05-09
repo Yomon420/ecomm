@@ -1,39 +1,40 @@
+import 'package:ecomm/repositories/product_repository.dart';
+
 import '../models/product.dart';
-import '../repositories/product_repository.dart';
 
 class ProductViewModel {
   final ProductRepository productRepository = ProductRepository();
 
   // Method to get products
-  Future<List<Product>> getProducts() async {
+  Future<List<Product>> getAllProducts() async {
     try {
-      return await productRepository.fetchProducts();
+      return await productRepository.getProducts();
     } catch (e) {
       // Handle errors (maybe show error message to UI)
       throw Exception('Error fetching products: $e');
     }
   }
 
-  void addProductToCart(Product product) {
-    productRepository.addToCart(product);
+  void addProductToUserCart(Product product) {
+    productRepository.addProductToCart(product);
   }
 
-  void removeProductFromCart(Product product) {
-    productRepository.removeFromCart(product);
+  void removeProductFromUserCart(Product product) {
+    productRepository.removeProductFromCart(product);
   }
 
   // For Product Page
-  bool checkProductInCart(Product product){
-    return productRepository.checkCart(product);
+  bool checkProductInUserCart(Product product){
+    return productRepository.checkProductInCart(product);
   }
 
   List<Product> displayCartProducts() {
-    return productRepository.getCartProducts();
+    return productRepository.displayCartProducts();
   }
 
   double getTotalPrice(){
     double total = 0;
-    for (var product in productRepository.getCartProducts()) {
+    for (var product in productRepository.displayCartProducts()) {
       total += product.price * product.count;
     }
     total = (total * 100).round() / 100;
@@ -41,13 +42,13 @@ class ProductViewModel {
   }
 
   void processProductsAfterCheckout(){
-    for (var product in productRepository.getCartProducts()) {
+    for (var product in productRepository.displayCartProducts()) {
       product.quantity -= product.count;
     }
   }
 
-  void removeCart(){
-    productRepository.emptyCart();
+  void removeUesrCart(){
+    productRepository.removeCart();
   }
 
   Future<List<Product>> getProductByCategory(

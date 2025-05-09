@@ -1,5 +1,5 @@
+import 'package:ecomm/controller/product_view_model.dart';
 import 'package:ecomm/models/product.dart';
-import 'package:ecomm/view_models/product_view_model.dart';
 import 'package:flutter/material.dart';
 
 class ProductPage extends StatefulWidget {
@@ -132,7 +132,7 @@ class _ProductPageState extends State<ProductPage> {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor:
-                              widget.productViewModel.checkProductInCart(
+                              widget.productViewModel.checkProductInUserCart(
                                     widget.product,
                                   )
                                   ? Colors.green
@@ -143,14 +143,14 @@ class _ProductPageState extends State<ProductPage> {
                         ),
                         onPressed: () {
                           setState(() {
-                            if (widget.productViewModel.checkProductInCart(
+                            if (widget.productViewModel.checkProductInUserCart(
                               widget.product,
                             )) {
-                              widget.productViewModel.removeProductFromCart(
+                              widget.productViewModel.removeProductFromUserCart(
                                 widget.product,
                               );
                             } else {
-                              widget.productViewModel.addProductToCart(
+                              widget.productViewModel.addProductToUserCart(
                                 widget.product,
                               );
                             }
@@ -169,7 +169,7 @@ class _ProductPageState extends State<ProductPage> {
                           // );
                         },
                         child:
-                            !widget.productViewModel.checkProductInCart(
+                            !widget.productViewModel.checkProductInUserCart(
                                   widget.product,
                                 )
                                 ? Text(

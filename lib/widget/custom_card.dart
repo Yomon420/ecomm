@@ -1,4 +1,4 @@
-import 'package:ecomm/view_models/product_view_model.dart';
+import 'package:ecomm/controller/product_view_model.dart';
 import 'package:ecomm/views/product_page.dart';
 import 'package:flutter/material.dart';
 
@@ -95,7 +95,7 @@ class _CustomCardState extends State<CustomCard> {
                   ),
                   Container(
                     decoration: BoxDecoration(
-                      color: widget.productViewModel.checkProductInCart(widget.product)? Colors.red : const Color(0xFF2E7D32),
+                      color: widget.productViewModel.checkProductInUserCart(widget.product)? Colors.red : const Color(0xFF2E7D32),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: IconButton(
@@ -104,7 +104,7 @@ class _CustomCardState extends State<CustomCard> {
                           if(widget.product.quantity != 0)
                           {
                             if (widget.productViewModel.displayCartProducts().contains(widget.product)) {
-                              widget.productViewModel.removeProductFromCart(widget.product);
+                              widget.productViewModel.removeProductFromUserCart(widget.product);
                               print(widget.productViewModel.displayCartProducts().length);
                             } else {
                               widget.productViewModel.displayCartProducts().add(widget.product);

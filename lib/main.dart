@@ -1,4 +1,4 @@
-import 'package:ecomm/view_models/product_view_model.dart';
+import 'package:ecomm/controller/product_view_model.dart';
 import 'package:ecomm/views/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,9 +22,9 @@ class MyApp extends StatelessWidget {
           Theme.of(context).textTheme,
         ),
       ),
-      home: HomePage(productViewModel: _productViewModel,allProducts: _productViewModel.getProducts(),),
+      home: HomePage(productViewModel: _productViewModel,allProducts: _productViewModel.getAllProducts(),),
       initialRoute: HomePage.id,
-      routes: {HomePage.id: (context) => HomePage(productViewModel: _productViewModel,allProducts: _productViewModel.getProducts(),)},
+      routes: {HomePage.id: (context) => HomePage(productViewModel: _productViewModel,allProducts: _productViewModel.getAllProducts(),)},
     );
   }
 }
