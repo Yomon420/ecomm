@@ -1,4 +1,4 @@
-import 'package:ecomm/controller/product_view_model.dart';
+import 'package:ecomm/controller/product_controller.dart';
 import 'package:ecomm/views/cart_page.dart';
 import 'package:ecomm/widget/custom_card.dart';
 import 'package:flutter/material.dart';
@@ -7,10 +7,10 @@ import '../models/product.dart';
 class HomePage extends StatefulWidget {
   const HomePage({
     super.key,
-    required this.productViewModel,
+    required this.productController,
     required this.allProducts,
   });
-  final ProductViewModel productViewModel;
+  final ProductController productController;
   static final String id = "Home Page";
   final allProducts;
   @override
@@ -72,7 +72,7 @@ class _HomePageState extends State<HomePage> {
             icon: const Icon(Icons.refresh_outlined, color: Color(0xFF2D3142)),
             onPressed: () {
               setState(() {
-                widget.productViewModel;
+                widget.productController;
               });
             },
           ),
@@ -85,7 +85,7 @@ class _HomePageState extends State<HomePage> {
               Navigator.push(
                 context,
                 _createSlideTransition(
-                  CartPage(cartProducts: widget.productViewModel, allProducts: widget.allProducts))).then((value){
+                  CartPage(cartProducts: widget.productController, allProducts: widget.allProducts))).then((value){
                     setState(() {});});
             },
           ),
@@ -94,8 +94,8 @@ class _HomePageState extends State<HomePage> {
       body: FutureBuilder<List<Product>>(
         future:
             _selectedItem.isEmpty
-                ? widget.productViewModel.getAllProducts()
-                : widget.productViewModel.getProductByCategory(
+                ? widget.productController.getAllProducts()
+                : widget.productController.getProductByCategory(
                   widget.allProducts,
                   _selectedItem,
                 ),
@@ -200,7 +200,7 @@ class _HomePageState extends State<HomePage> {
                         return CustomCard(
                           product: product,
                           category: _selectedItem,
-                          productViewModel: widget.productViewModel,
+                          productController: widget.productController,
                         );
                       },
                     ),

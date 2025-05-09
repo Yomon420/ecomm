@@ -2,7 +2,7 @@ import 'package:ecomm/repositories/product_repository.dart';
 
 import '../models/product.dart';
 
-class ProductViewModel {
+class ProductController {
   final ProductRepository productRepository = ProductRepository();
 
   // Method to get products

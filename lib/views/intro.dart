@@ -1,11 +1,11 @@
-import 'package:ecomm/controller/product_view_model.dart';
+import 'package:ecomm/controller/product_controller.dart';
 import 'package:ecomm/views/home_page.dart';
 import 'package:flutter/material.dart';
 
 class Intro extends StatefulWidget {
-  final ProductViewModel productViewModel;
+  final ProductController productController;
   final allProducts;
-  const Intro({super.key, required this.productViewModel, required this.allProducts});
+  const Intro({super.key, required this.productController, required this.allProducts});
 
   @override
   State<Intro> createState() => _IntroState();
@@ -14,12 +14,12 @@ class Intro extends StatefulWidget {
 class _IntroState extends State<Intro> {
   @override
   void initState() {
-    widget.productViewModel.processProductsAfterCheckout();
-    widget.productViewModel.removeUesrCart();
+    widget.productController.processProductsAfterCheckout();
+    widget.productController.removeUesrCart();
     Future.delayed(Duration(seconds: 3), () {
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => HomePage(productViewModel: widget.productViewModel, allProducts: widget.allProducts)),
+        MaterialPageRoute(builder: (context) => HomePage(productController: widget.productController, allProducts: widget.allProducts)),
         (route) => false,
       );
     });

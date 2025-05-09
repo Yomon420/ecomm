@@ -1,4 +1,4 @@
-import 'package:ecomm/controller/product_view_model.dart';
+import 'package:ecomm/controller/product_controller.dart';
 import 'package:ecomm/views/product_page.dart';
 import 'package:flutter/material.dart';
 
@@ -7,12 +7,12 @@ import '../models/product.dart';
 class CustomCardCart extends StatefulWidget {
   final Product product;
   final String category;
-  final ProductViewModel productViewModel;
+  final ProductController productController;
   const CustomCardCart({
     super.key,
     required this.product,
     required this.category,
-    required this.productViewModel,
+    required this.productController,
   });
 
   @override
@@ -21,7 +21,7 @@ class CustomCardCart extends StatefulWidget {
 
 class _CustomCardCartState extends State<CustomCardCart> {
   Color changeColor() {
-    var prod = widget.productViewModel.displayCartProducts();
+    var prod = widget.productController.displayCartProducts();
     print(prod.length);
     for (int i = 0; i < prod.length; i++) {
       if (prod[i].title == widget.product.title) {
@@ -37,7 +37,7 @@ class _CustomCardCartState extends State<CustomCardCart> {
       onTap: () {
         Navigator.push(
           context, 
-          MaterialPageRoute(builder: (context)=>ProductPage(product: widget.product,productViewModel: widget.productViewModel,))
+          MaterialPageRoute(builder: (context)=>ProductPage(product: widget.product,productController: widget.productController,))
           ).then((value){
             setState(() {
               print("update home page");
@@ -111,12 +111,12 @@ class _CustomCardCartState extends State<CustomCardCart> {
                     child: IconButton(
                       onPressed: () {
                         setState(() {
-                          if (widget.productViewModel.displayCartProducts().contains(widget.product)) {
-                            widget.productViewModel.removeProductFromUserCart(widget.product);
-                            print(widget.productViewModel.displayCartProducts().length);
+                          if (widget.productController.displayCartProducts().contains(widget.product)) {
+                            widget.productController.removeProductFromUserCart(widget.product);
+                            print(widget.productController.displayCartProducts().length);
                           } else {
-                            widget.productViewModel.displayCartProducts().add(widget.product);
-                            print(widget.productViewModel.displayCartProducts().length);
+                            widget.productController.displayCartProducts().add(widget.product);
+                            print(widget.productController.displayCartProducts().length);
                           }
                         });
                       },

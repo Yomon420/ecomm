@@ -1,11 +1,11 @@
-import 'package:ecomm/controller/product_view_model.dart';
+import 'package:ecomm/controller/product_controller.dart';
 import 'package:ecomm/views/intro.dart';
 import 'package:ecomm/widget/custom_card_cart.dart';
 import 'package:flutter/material.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({super.key, required this.cartProducts, required this.allProducts});
-  final ProductViewModel cartProducts;
+  final ProductController cartProducts;
   final allProducts;
 
   @override
@@ -79,7 +79,7 @@ class _CartPageState extends State<CartPage> {
                           return CustomCardCart(
                             product: product,
                             category: "all",
-                            productViewModel: widget.cartProducts,
+                            productController: widget.cartProducts,
                           );
                         },
                       ),
@@ -127,7 +127,7 @@ class _CartPageState extends State<CartPage> {
                               if(widget.cartProducts.displayCartProducts().isNotEmpty)
                               {
                                   Navigator.push(context, MaterialPageRoute(
-                                  builder: (context) => Intro(productViewModel: widget.cartProducts,allProducts: widget.allProducts,),
+                                  builder: (context) => Intro(productController: widget.cartProducts,allProducts: widget.allProducts,),
                                 ));
                               }else{
                                 ScaffoldMessenger.of(context).showSnackBar(

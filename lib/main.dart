@@ -1,4 +1,4 @@
-import 'package:ecomm/controller/product_view_model.dart';
+import 'package:ecomm/controller/product_controller.dart';
 import 'package:ecomm/views/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ProductViewModel _productViewModel = ProductViewModel();
+    final ProductController _productController = ProductController();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -22,9 +22,9 @@ class MyApp extends StatelessWidget {
           Theme.of(context).textTheme,
         ),
       ),
-      home: HomePage(productViewModel: _productViewModel,allProducts: _productViewModel.getAllProducts(),),
+      home: HomePage(productController: _productController,allProducts: _productController.getAllProducts(),),
       initialRoute: HomePage.id,
-      routes: {HomePage.id: (context) => HomePage(productViewModel: _productViewModel,allProducts: _productViewModel.getAllProducts(),)},
+      routes: {HomePage.id: (context) => HomePage(productController: _productController,allProducts: _productController.getAllProducts(),)},
     );
   }
 }
