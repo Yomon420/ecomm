@@ -58,9 +58,9 @@ class _ProductPageState extends State<ProductPage> {
                 Padding(
                   padding: EdgeInsets.only(left: 8.0),
                   child: Text(
-                    "x${widget.product.quantity}",
+                    widget.product.quantity != 0? "x${widget.product.quantity}" : "Out of Stock",
                     style: TextStyle(
-                      color: const Color.fromARGB(255, 183, 169, 44),
+                      color: widget.product.quantity != 0? const Color.fromARGB(255, 183, 169, 44) : Colors.red,
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
                     ),
@@ -143,30 +143,19 @@ class _ProductPageState extends State<ProductPage> {
                         ),
                         onPressed: () {
                           setState(() {
-                            if (widget.productController.checkProductInUserCart(
-                              widget.product,
-                            )) {
-                              widget.productController.removeProductFromUserCart(
+                            if(widget.product.quantity != 0){
+                              if (widget.productController.checkProductInUserCart(
+                                widget.product,
+                              )) {
+                                widget.productController.removeProductFromUserCart(
                                 widget.product,
                               );
-                            } else {
-                              widget.productController.addProductToUserCart(
+                              } else {
+                                widget.productController.addProductToUserCart(
                                 widget.product,
                               );
-                            }
+                            }}
                           });
-                          // ScaffoldMessenger.of(context).showSnackBar(
-                          //   SnackBar(
-                          //     content:
-                          //         widget.productViewModel.checkProductInCart(
-                          //               widget.product,
-                          //             )
-                          //             ? Text("Product added to cart")
-                          //             : Text("Product removed from cart"),
-                          //     duration: Duration(milliseconds: 600),
-                          //     backgroundColor: Colors.green,
-                          //   ),
-                          // );
                         },
                         child:
                             !widget.productController.checkProductInUserCart(

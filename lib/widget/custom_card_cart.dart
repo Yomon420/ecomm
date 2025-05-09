@@ -8,11 +8,13 @@ class CustomCardCart extends StatefulWidget {
   final Product product;
   final String category;
   final ProductController productController;
+  final void Function() onCartUpdate;
   const CustomCardCart({
     super.key,
     required this.product,
     required this.category,
     required this.productController,
+    required this.onCartUpdate,
   });
 
   @override
@@ -111,12 +113,14 @@ class _CustomCardCartState extends State<CustomCardCart> {
                     child: IconButton(
                       onPressed: () {
                         setState(() {
-                          if (widget.productController.displayCartProducts().contains(widget.product)) {
-                            widget.productController.removeProductFromUserCart(widget.product);
-                            print(widget.productController.displayCartProducts().length);
-                          } else {
-                            widget.productController.displayCartProducts().add(widget.product);
-                            print(widget.productController.displayCartProducts().length);
+                          if(widget.product.quantity != 0){
+                            if (widget.productController.displayCartProducts().contains(widget.product)) {
+                              widget.productController.removeProductFromUserCart(widget.product);
+                              print(widget.productController.displayCartProducts().length);
+                            } else {
+                              widget.productController.displayCartProducts().add(widget.product);
+                              print(widget.productController.displayCartProducts().length);
+                            }
                           }
                         });
                       },
@@ -151,6 +155,7 @@ class _CustomCardCartState extends State<CustomCardCart> {
                         setState(() {
                           if(widget.product.count > 0){
                             widget.product.count--;
+                            widget.onCartUpdate();
                           }
                         });
                       },
@@ -167,6 +172,7 @@ class _CustomCardCartState extends State<CustomCardCart> {
                         setState(() {
                           if(widget.product.quantity > widget.product.count){
                             widget.product.count++;
+                            widget.onCartUpdate();
                           }
                         });
                       },

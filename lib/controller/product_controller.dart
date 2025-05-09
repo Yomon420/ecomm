@@ -51,6 +51,16 @@ class ProductController {
     productRepository.removeCart();
   }
 
+  // check if the cart contains an actual product
+  bool checkCartCount(){
+    for(var product in displayCartProducts()){
+      if(product.count > 0){
+        return true;
+      }
+    }
+    return false;
+  }
+
   Future<List<Product>> getProductByCategory(
     Future<List<Product>> productsFuture,
     String category,
