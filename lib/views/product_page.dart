@@ -154,13 +154,20 @@ class _ProductPageState extends State<ProductPage> {
                                 widget.productController.addProductToUserCart(
                                 widget.product,
                               );
-                            }}
+                            }}else{
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text("Out of Stock"),
+                                  duration: Duration(milliseconds: 600),
+                                )
+                              );
+                            }
                           });
                         },
                         child:
                             !widget.productController.checkProductInUserCart(
                                   widget.product,
-                                )
+                            )
                                 ? Text(
                                   'Add To Cart',
                                   style: TextStyle(

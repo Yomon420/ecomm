@@ -141,13 +141,13 @@ class _CustomCardCartState extends State<CustomCardCart> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "x${widget.product.quantity}",
+                      widget.product.quantity != 0? "x${widget.product.quantity}" : "Out of Stock",
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                     style: const TextStyle(
+                     style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: Colors.amber,
+                            color: widget.product.quantity != 0? Colors.amber : Colors.red,
                       ),
                     ),
                     IconButton(
