@@ -31,8 +31,15 @@ class _CartPageState extends State<CartPage> {
     final double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      backgroundColor: const Color(0xFFF5F5F5),
       appBar: AppBar(
-        title: const Text('Cart'),
+        title: const Text(
+          'Cart',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+          ),
+        backgroundColor: Colors.green,
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh_outlined),
@@ -55,7 +62,7 @@ class _CartPageState extends State<CartPage> {
                 children: [
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(8),
                       child: GridView.builder(
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount:
@@ -72,7 +79,7 @@ class _CartPageState extends State<CartPage> {
                           return CustomCardCart(
                             product: product,
                             category: "all",
-                            cart: widget.cartProducts,
+                            productViewModel: widget.cartProducts,
                           );
                         },
                       ),
@@ -122,6 +129,13 @@ class _CartPageState extends State<CartPage> {
                                   Navigator.push(context, MaterialPageRoute(
                                   builder: (context) => Intro(productViewModel: widget.cartProducts,allProducts: widget.allProducts,),
                                 ));
+                              }else{
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text("No items in cart"),
+                                    duration: Duration(milliseconds: 600),
+                                  ),
+                                );
                               }
                             },
                             child: const Text(

@@ -4,13 +4,13 @@ import '../models/product.dart'; // Product model file
 
 class ProductRepository {
   // The API URL
-  final String _apiUrl = 'https://fakestoreapi.com/products';
+  final String apiUrl = 'https://fakestoreapi.com/products';
   List<Product> _cartProducts = [];
   // Method to fetch products from API
   Future<List<Product>> fetchProducts() async {
     try {
       // Make the HTTP GET request
-      final response = await http.get(Uri.parse(_apiUrl));
+      final response = await http.get(Uri.parse(apiUrl));
 
       // Check if the request was successful
       if (response.statusCode == 200) {
@@ -40,6 +40,14 @@ class ProductRepository {
 
   List<Product> getCartProducts() {
     return _cartProducts;
+  }
+
+  // For Product Page
+  bool checkCart(Product product){
+    if(_cartProducts.contains(product)){
+      return true;
+    }
+    return false;
   }
 
   void emptyCart(){

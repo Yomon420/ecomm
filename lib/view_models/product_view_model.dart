@@ -22,6 +22,11 @@ class ProductViewModel {
     productRepository.removeFromCart(product);
   }
 
+  // For Product Page
+  bool checkProductInCart(Product product){
+    return productRepository.checkCart(product);
+  }
+
   List<Product> displayCartProducts() {
     return productRepository.getCartProducts();
   }
@@ -35,7 +40,7 @@ class ProductViewModel {
     return total;
   }
 
-  void processProducts(){
+  void processProductsAfterCheckout(){
     for (var product in productRepository.getCartProducts()) {
       product.quantity -= product.count;
     }

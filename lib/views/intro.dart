@@ -14,7 +14,7 @@ class Intro extends StatefulWidget {
 class _IntroState extends State<Intro> {
   @override
   void initState() {
-    widget.productViewModel.processProducts();
+    widget.productViewModel.processProductsAfterCheckout();
     widget.productViewModel.removeCart();
     Future.delayed(Duration(seconds: 3), () {
       Navigator.pushAndRemoveUntil(

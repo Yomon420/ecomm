@@ -5,7 +5,11 @@ import 'package:flutter/material.dart';
 import '../models/product.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.productViewModel, required this.allProducts});
+  const HomePage({
+    super.key,
+    required this.productViewModel,
+    required this.allProducts,
+  });
   final ProductViewModel productViewModel;
   static final String id = "Home Page";
   final allProducts;
@@ -15,7 +19,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String _selectedItem = "all";
-  
+
   @override
   Widget build(BuildContext context) {
     final List<String> items = [
@@ -27,6 +31,28 @@ class _HomePageState extends State<HomePage> {
     ];
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
+    // Animation
+    PageRouteBuilder _createSlideTransition(Widget page) {
+      return PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) {
+          return page;
+        },
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          // Slide from the right (you can change the direction here)
+          const begin = Offset(1.0, 0.0);
+          const end = Offset.zero;
+          const curve = Curves.easeInOut;
+
+          var tween = Tween(
+            begin: begin,
+            end: end,
+          ).chain(CurveTween(curve: curve));
+          var offsetAnimation = animation.drive(tween);
+
+          return SlideTransition(position: offsetAnimation, child: child);
+        },
+      );
+    }
 
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
@@ -43,10 +69,7 @@ class _HomePageState extends State<HomePage> {
         ),
         actions: [
           IconButton(
-            icon: const Icon(
-              Icons.refresh_outlined,
-              color: Color(0xFF2D3142),
-            ),
+            icon: const Icon(Icons.refresh_outlined, color: Color(0xFF2D3142)),
             onPressed: () {
               setState(() {
                 widget.productViewModel;
@@ -61,14 +84,9 @@ class _HomePageState extends State<HomePage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder:
-                      (context) => CartPage(
-                        cartProducts: widget.productViewModel,
-                        allProducts: widget.allProducts,
-                      ),
-                ),
-              );
+                _createSlideTransition(
+                  CartPage(cartProducts: widget.productViewModel, allProducts: widget.allProducts))).then((value){
+                    setState(() {});});
             },
           ),
         ],
@@ -169,20 +187,20 @@ class _HomePageState extends State<HomePage> {
                   child: Padding(
                     padding: const EdgeInsets.all(16),
                     child: GridView.builder(
-                      gridDelegate:
-                          SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: MediaQuery.of(context).size.width > 600 ? 4 : 2,
-                            crossAxisSpacing: 16,
-                            mainAxisSpacing: 16,
-                            childAspectRatio: screenWidth / screenHeight * 1.3,
-                          ),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount:
+                            MediaQuery.of(context).size.width > 600 ? 4 : 2,
+                        crossAxisSpacing: 16,
+                        mainAxisSpacing: 16,
+                        childAspectRatio: screenWidth / screenHeight * 1.3,
+                      ),
                       itemCount: products.length,
                       itemBuilder: (context, index) {
                         final product = products[index];
                         return CustomCard(
                           product: product,
                           category: _selectedItem,
-                          cart: widget.productViewModel,
+                          productViewModel: widget.productViewModel,
                         );
                       },
                     ),
