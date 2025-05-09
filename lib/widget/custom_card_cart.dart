@@ -131,22 +131,22 @@ class _CustomCardCartState extends State<CustomCardCart> {
                   ),
                 ],
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    "x${widget.product.quantity}",
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                   style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF2E7D32),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "x${widget.product.quantity}",
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                     style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.amber,
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left:15.0),
-                    child: IconButton(
+                    IconButton(
                       onPressed: (){
                         setState(() {
                           if(widget.product.count > 0){
@@ -156,19 +156,13 @@ class _CustomCardCartState extends State<CustomCardCart> {
                       },
                       icon: Icon(Icons.remove)
                       ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left:2.0),
-                    child: Text(
+                    Text(
                       "${widget.product.count}",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
-                      )
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left:2.0),
-                    child: IconButton(
+                      ),
+                    IconButton(
                       onPressed: (){
                         setState(() {
                           if(widget.product.quantity > widget.product.count){
@@ -178,8 +172,8 @@ class _CustomCardCartState extends State<CustomCardCart> {
                       },
                       icon: Icon(Icons.add)
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),

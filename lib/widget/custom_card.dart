@@ -127,10 +127,10 @@ class _CustomCardState extends State<CustomCard> {
                 widget.product.quantity != 0?"x${widget.product.quantity}":"Out of Stock",
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-               style: const TextStyle(
+               style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF2E7D32),
+                      color: widget.product.quantity !=0? Color.fromARGB(255, 204, 189, 60) : Colors.red,
                 ),
               ),
             ],
