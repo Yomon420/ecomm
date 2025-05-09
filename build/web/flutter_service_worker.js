@@ -27,14 +27,14 @@ const RESOURCES = {"assets/android/assets/images/checkout.gif": "60720df441b1538
 "canvaskit/skwasm_st.wasm": "56c3973560dfcbf28ce47cebe40f3206",
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
 "flutter.js": "76f08d47ff9f5715220992f993002504",
-"flutter_bootstrap.js": "32c665bfe17311b2a3c9d221e41fefb3",
+"flutter_bootstrap.js": "338fd2d180b150046e2185070d1d79f8",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
 "icons/Icon-maskable-512.png": "301a7604d45b3e739efc881eb04896ea",
 "index.html": "b960e9e51bc2dc247173017e099a0985",
 "/": "b960e9e51bc2dc247173017e099a0985",
-"main.dart.js": "8ea613d4a6ca7fb6f89edffbf0119295",
+"main.dart.js": "2c252db5e4b03ad2638a42cb1eeeffc9",
 "manifest.json": "f2424e5ee4d6d4b74ed0cd7f165949db",
 "version.json": "bbe2ff2ec3a06a0ebec22fbf61fff9cb"};
 // The application shell files that are downloaded before a service worker can
