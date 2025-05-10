@@ -6,21 +6,17 @@ import '../models/product.dart';
 
 class CustomCardCart extends StatefulWidget {
   final Product _product;
-  final String _category;
   final CartController _cartController;
   final void Function() _onCartUpdate;
   const CustomCardCart({
     super.key,
     required product,
-    required category,
     required cartController,
     required onCartUpdate,
   }) :
   _product = product,
-  _category = category,
   _cartController = cartController,
-  _onCartUpdate = onCartUpdate
-  ;
+  _onCartUpdate = onCartUpdate;
 
   @override
   State<CustomCardCart> createState() => _CustomCardCartState();

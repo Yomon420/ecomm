@@ -1,18 +1,22 @@
 import 'package:ecomm/controller/cart_controller.dart';
-import 'package:ecomm/views/intro.dart';
+import 'package:ecomm/controller/product_controller.dart';
+import 'package:ecomm/widget/animation_checkout.dart';
 import 'package:ecomm/widget/custom_card_cart.dart';
 import 'package:flutter/material.dart';
 
 class CartPage extends StatefulWidget {
   final CartController _cartController;
   final _allProducts;
+  final ProductController _productController;
   const CartPage({
     super.key,
     required CartController,
     required allProducts,
+    required productController,
   }) : 
   _cartController = CartController,
-  _allProducts = allProducts;
+  _allProducts = allProducts,
+  _productController = productController;
 
   @override
   State<CartPage> createState() => _CartPageState();
@@ -82,7 +86,6 @@ class _CartPageState extends State<CartPage> {
                               widget._cartController.displayCartProducts()[index];
                           return CustomCardCart(
                             product: product,
-                            category: "all",
                             cartController: widget._cartController,
                             onCartUpdate: (){
                               setState(() {
@@ -138,10 +141,10 @@ class _CartPageState extends State<CartPage> {
                                   context,
                                   MaterialPageRoute(
                                     builder:
-                                        (context) => Intro(
-                                          cartController:
-                                              widget._cartController,
+                                        (context) => AnimationCheckout(
+                                          cartController: widget._cartController,
                                           allProducts: widget._allProducts,
+                                          productController: widget._productController,
                                         ),
                                   ),
                                 );

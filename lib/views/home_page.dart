@@ -90,7 +90,7 @@ class _HomePageState extends State<HomePage> {
               Navigator.push(
                 context,
                 createSlideTransition(
-                  CartPage(CartController: widget._productController, allProducts: widget._allProducts))).then((value){
+                  CartPage(CartController: _cartController, allProducts: widget._allProducts, productController: widget._productController,))).then((value){
                     setState(() {});});
             },
           ),
@@ -204,8 +204,6 @@ class _HomePageState extends State<HomePage> {
                         final product = products[index];
                         return CustomCard(
                           product: product,
-                          category: _selectedItem,
-                          productController: widget._productController,
                           cartController: _cartController,
                         );
                       },

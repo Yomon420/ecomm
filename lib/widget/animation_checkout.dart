@@ -1,26 +1,28 @@
 // ignore_for_file: file_names
-
 import 'package:ecomm/controller/cart_controller.dart';
 import 'package:ecomm/views/home_page.dart';
 import 'package:flutter/material.dart';
 
-class Intro extends StatefulWidget {
+class AnimationCheckout extends StatefulWidget {
   final CartController _cartController;
   final _allProducts;
-  const Intro({
+  final _productController;
+  const AnimationCheckout({
     super.key,
     required cartController,
-    required allProducts
+    required allProducts,
+    required productController,
     }) : 
     _allProducts = allProducts,
-    _cartController = cartController
+    _cartController = cartController,
+    _productController = productController
     ;
 
   @override
-  State<Intro> createState() => _IntroState();
+  State<AnimationCheckout> createState() => _AnimationCheckoutState();
 }
 
-class _IntroState extends State<Intro> {
+class _AnimationCheckoutState extends State<AnimationCheckout> {
   @override
   void initState() {
     widget._cartController.processProductsAfterCheckout();
@@ -28,7 +30,7 @@ class _IntroState extends State<Intro> {
     Future.delayed(Duration(seconds: 3), () {
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => HomePage(productController: widget._cartController, allProducts: widget._allProducts)),
+        MaterialPageRoute(builder: (context) => HomePage(productController: widget._productController, allProducts: widget._allProducts)),
         (route) => false,
       );
     });

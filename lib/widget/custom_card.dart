@@ -1,5 +1,4 @@
 import 'package:ecomm/controller/cart_controller.dart';
-import 'package:ecomm/controller/product_controller.dart';
 import 'package:ecomm/views/product_page.dart';
 import 'package:flutter/material.dart';
 
@@ -7,21 +6,14 @@ import '../models/product.dart';
 
 class CustomCard extends StatefulWidget {
   final Product _product;
-  final String _category;
-  final ProductController _productController;
   final CartController _cartController;
   const CustomCard({
     super.key,
     required product,
-    required category,
-    required productController,
     required cartController,
   }) :
   _product = product,
-  _category = category,
-  _productController = productController,
-  _cartController = cartController
-  ;
+  _cartController = cartController;
 
   @override
   State<CustomCard> createState() => _CustomCardState();
@@ -34,7 +26,7 @@ class _CustomCardState extends State<CustomCard> {
       onTap: () {
         Navigator.push(
           context, 
-          MaterialPageRoute(builder: (context)=>ProductPage(product: widget._product,cartController: widget._productController,))
+          MaterialPageRoute(builder: (context)=>ProductPage(product: widget._product,cartController: widget._cartController,))
           ).then((value){
             setState(() {
               print("update home page");

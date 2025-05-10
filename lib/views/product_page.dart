@@ -5,10 +5,11 @@ import 'package:flutter/material.dart';
 class ProductPage extends StatefulWidget {
   final Product _product;
   final CartController _cartController;
+
   const ProductPage({
     super.key,
     required product,
-    required cartController
+    required cartController,
   }) : 
   _product = product,
   _cartController = cartController;
