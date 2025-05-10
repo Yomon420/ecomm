@@ -5,17 +5,18 @@ import 'package:flutter/material.dart';
 import '../models/product.dart';
 
 class HomePage extends StatefulWidget {
+  final ProductController _productController;
+  static final String id = "Home Page";
+  final _allProducts;
+  
   const HomePage({
     super.key,
     required productController,
     required allProducts,
   }) : 
   _productController = productController,
-  _allProducts = allProducts
-  ;
-  final ProductController _productController;
-  static final String id = "Home Page";
-  final _allProducts;
+  _allProducts = allProducts;
+  
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -35,7 +36,7 @@ class _HomePageState extends State<HomePage> {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
     // Animation
-    PageRouteBuilder _createSlideTransition(Widget page) {
+    PageRouteBuilder createSlideTransition(Widget page) {
       return PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) {
           return page;
@@ -87,7 +88,7 @@ class _HomePageState extends State<HomePage> {
             onPressed: () {
               Navigator.push(
                 context,
-                _createSlideTransition(
+                createSlideTransition(
                   CartPage(cartProducts: widget._productController, allProducts: widget._allProducts))).then((value){
                     setState(() {});});
             },

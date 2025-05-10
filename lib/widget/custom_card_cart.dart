@@ -24,7 +24,6 @@ class CustomCardCart extends StatefulWidget {
 class _CustomCardCartState extends State<CustomCardCart> {
   Color changeColor() {
     var prod = widget.productController.displayCartProducts();
-    print(prod.length);
     for (int i = 0; i < prod.length; i++) {
       if (prod[i].getTitle() == widget.product.getTitle()) {
         return Colors.red;
@@ -42,7 +41,7 @@ class _CustomCardCartState extends State<CustomCardCart> {
           MaterialPageRoute(builder: (context)=>ProductPage(product: widget.product,productController: widget.productController,))
           ).then((value){
             setState(() {
-              print("update home page");
+              print("Update home page");
             });
           });
       },
@@ -116,10 +115,10 @@ class _CustomCardCartState extends State<CustomCardCart> {
                           if(widget.product.getQuantity() != 0){
                             if (widget.productController.displayCartProducts().contains(widget.product)) {
                               widget.productController.removeProductFromUserCart(widget.product);
-                              print(widget.productController.displayCartProducts().length);
+                              print("No. of items in cart: "+widget.productController.displayCartProducts().length.toString());
                             } else {
                               widget.productController.displayCartProducts().add(widget.product);
-                              print(widget.productController.displayCartProducts().length);
+                              print("No. of items in cart: "+widget.productController.displayCartProducts().length.toString());
                             }
                           }
                         });

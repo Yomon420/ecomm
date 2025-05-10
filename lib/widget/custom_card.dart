@@ -104,10 +104,10 @@ class _CustomCardState extends State<CustomCard> {
                           {
                             if (widget.productController.displayCartProducts().contains(widget.product)) {
                               widget.productController.removeProductFromUserCart(widget.product);
-                              print(widget.productController.displayCartProducts().length);
+                              print("No. of items in cart: "+widget.productController.displayCartProducts().length.toString());
                             } else {
                               widget.productController.displayCartProducts().add(widget.product);
-                              print(widget.productController.displayCartProducts().length);
+                              print("No. of items in cart: "+widget.productController.displayCartProducts().length.toString());
                             }}else {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(

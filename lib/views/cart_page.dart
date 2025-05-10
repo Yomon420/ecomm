@@ -4,16 +4,15 @@ import 'package:ecomm/widget/custom_card_cart.dart';
 import 'package:flutter/material.dart';
 
 class CartPage extends StatefulWidget {
+  final ProductController _cartProducts;
+  final _allProducts;
   const CartPage({
     super.key,
     required cartProducts,
     required allProducts,
   }) : 
   _cartProducts = cartProducts,
-  _allProducts = allProducts
-  ;
-  final ProductController _cartProducts;
-  final _allProducts;
+  _allProducts = allProducts;
 
   @override
   State<CartPage> createState() => _CartPageState();

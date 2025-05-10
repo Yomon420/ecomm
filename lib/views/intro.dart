@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:ecomm/controller/controller.dart';
 import 'package:ecomm/views/home_page.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +55,6 @@ class _IntroState extends State<Intro> {
           padding: const EdgeInsets.all(40.0),
           child: Image.asset(
             "android/assets/images/checkout.gif",
-            //color: const Color.fromARGB(255, 221, 171, 24),
           ),
         ),
       ),
