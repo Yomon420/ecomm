@@ -4,13 +4,12 @@ import '../models/product.dart'; // Product model file
 
 class ProductDatabase {
   // The API URL
-  final String _apiUrl = 'https://fakestoreapi.com/products';
   List<Product> _cartProducts = [];
   // Method to fetch products from API
   Future<List<Product>> fetchProducts() async {
     try {
       // Make the HTTP GET request
-      final response = await http.get(Uri.parse(_apiUrl));
+      final response = await http.get(Uri.parse('https://fakestoreapi.com/products'));
 
       // Check if the request was successful
       if (response.statusCode == 200) {

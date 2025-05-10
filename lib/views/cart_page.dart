@@ -1,4 +1,4 @@
-import 'package:ecomm/controller/controller.dart';
+import 'package:ecomm/controller/product_controller.dart';
 import 'package:ecomm/views/intro.dart';
 import 'package:ecomm/widget/custom_card_cart.dart';
 import 'package:flutter/material.dart';
