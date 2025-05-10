@@ -4,7 +4,7 @@ import '../models/product.dart'; // Product model file
 
 class ProductDatabase {
   // The API URL
-  List<Product> _cartProducts = [];
+  //List<Product> _cartProducts = [];
   // Method to fetch products from API
   Future<List<Product>> fetchProducts() async {
     try {
@@ -29,34 +29,34 @@ class ProductDatabase {
     }
   }
 
-  // Add an item to the cart
-  void addToCart(Product product) {
-    _cartProducts.add(product);
-  }
+  // // Add an item to the cart
+  // void addToCart(Product product) {
+  //   _cartProducts.add(product);
+  // }
 
-  // Remove an item from the cart
-  void removeFromCart(Product product) {
-    _cartProducts.remove(product);
-  }
+  // // Remove an item from the cart
+  // void removeFromCart(Product product) {
+  //   _cartProducts.remove(product);
+  // }
 
-  // Display items that is inside cart
-  List<Product> getCartProducts() {
-    return _cartProducts;
-  }
+  // // Display items that is inside cart
+  // List<Product> getCartProducts() {
+  //   return _cartProducts;
+  // }
 
-  // Check if the cart contains any product
-  bool checkCart(Product product){
-    if(_cartProducts.contains(product)){
-      return true;
-    }
-    return false;
-  }
+  // // Check if the cart contains any product
+  // bool checkCart(Product product){
+  //   if(_cartProducts.contains(product)){
+  //     return true;
+  //   }
+  //   return false;
+  // }
 
-  // Empty the cart from any product inside it
-  void emptyCart(){
-    for(var product in _cartProducts){
-      product.setCount(0);
-    }
-    _cartProducts = [];
-  }
+  // // Empty the cart from any product inside it
+  // void emptyCart(){
+  //   for(var product in _cartProducts){
+  //     product.setCount(0);
+  //   }
+  //   _cartProducts = [];
+  // }
 }

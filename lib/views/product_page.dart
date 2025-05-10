@@ -1,18 +1,18 @@
-import 'package:ecomm/controller/product_controller.dart';
+import 'package:ecomm/controller/cart_controller.dart';
 import 'package:ecomm/models/product.dart';
 import 'package:flutter/material.dart';
 
 class ProductPage extends StatefulWidget {
+  final Product _product;
+  final CartController _cartController;
   const ProductPage({
     super.key,
     required product,
-    required productController,
+    required cartController
   }) : 
   _product = product,
-  _productController = productController
-  ;
-  final Product _product;
-  final ProductController _productController;
+  _cartController = cartController;
+
   @override
   State<ProductPage> createState() => _ProductPageState();
 }
@@ -135,7 +135,7 @@ class _ProductPageState extends State<ProductPage> {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor:
-                              widget._productController.checkProductInUserCart(
+                              widget._cartController.checkProductInUserCart(
                                     widget._product,
                                   )
                                   ? Colors.green
@@ -147,14 +147,14 @@ class _ProductPageState extends State<ProductPage> {
                         onPressed: () {
                           setState(() {
                             if(widget._product.getQuantity() != 0){
-                              if (widget._productController.checkProductInUserCart(
+                              if (widget._cartController.checkProductInUserCart(
                                 widget._product,
                               )) {
-                                widget._productController.removeProductFromUserCart(
+                                widget._cartController.removeProductFromUserCart(
                                 widget._product,
                               );
                               } else {
-                                widget._productController.addProductToUserCart(
+                                widget._cartController.addProductToUserCart(
                                 widget._product,
                               );
                             }}else{
@@ -168,7 +168,7 @@ class _ProductPageState extends State<ProductPage> {
                           });
                         },
                         child:
-                            !widget._productController.checkProductInUserCart(
+                            !widget._cartController.checkProductInUserCart(
                                   widget._product,
                             )
                                 ? Text(

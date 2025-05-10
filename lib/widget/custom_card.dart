@@ -1,3 +1,4 @@
+import 'package:ecomm/controller/cart_controller.dart';
 import 'package:ecomm/controller/product_controller.dart';
 import 'package:ecomm/views/product_page.dart';
 import 'package:flutter/material.dart';
@@ -5,15 +6,22 @@ import 'package:flutter/material.dart';
 import '../models/product.dart';
 
 class CustomCard extends StatefulWidget {
-  final Product product;
-  final String category;
-  final ProductController productController;
+  final Product _product;
+  final String _category;
+  final ProductController _productController;
+  final CartController _cartController;
   const CustomCard({
     super.key,
-    required this.product,
-    required this.category,
-    required this.productController,
-  });
+    required product,
+    required category,
+    required productController,
+    required cartController,
+  }) :
+  _product = product,
+  _category = category,
+  _productController = productController,
+  _cartController = cartController
+  ;
 
   @override
   State<CustomCard> createState() => _CustomCardState();
@@ -26,7 +34,7 @@ class _CustomCardState extends State<CustomCard> {
       onTap: () {
         Navigator.push(
           context, 
-          MaterialPageRoute(builder: (context)=>ProductPage(product: widget.product,productController: widget.productController,))
+          MaterialPageRoute(builder: (context)=>ProductPage(product: widget._product,cartController: widget._productController,))
           ).then((value){
             setState(() {
               print("update home page");
@@ -61,7 +69,7 @@ class _CustomCardState extends State<CustomCard> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(12),
                   child: Image.network(
-                    widget.product.getImageUrl(),
+                    widget._product.getImageUrl(),
                     height: 120,
                     width: double.infinity,
                     fit: BoxFit.fitHeight,
@@ -70,7 +78,7 @@ class _CustomCardState extends State<CustomCard> {
               ),
               const SizedBox(height: 16),
               Text(
-                widget.product.getTitle(),
+                widget._product.getTitle(),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
@@ -85,7 +93,7 @@ class _CustomCardState extends State<CustomCard> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "\$${widget.product.getPrice()}",
+                    "\$${widget._product.getPrice()}",
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -94,20 +102,20 @@ class _CustomCardState extends State<CustomCard> {
                   ),
                   Container(
                     decoration: BoxDecoration(
-                      color: widget.productController.checkProductInUserCart(widget.product)? Colors.red : const Color(0xFF2E7D32),
+                      color: widget._cartController.checkProductInUserCart(widget._product)? Colors.red : const Color(0xFF2E7D32),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: IconButton(
                       onPressed: () {
                         setState(() {
-                          if(widget.product.getQuantity() != 0)
+                          if(widget._product.getQuantity() != 0)
                           {
-                            if (widget.productController.displayCartProducts().contains(widget.product)) {
-                              widget.productController.removeProductFromUserCart(widget.product);
-                              print("No. of items in cart: "+widget.productController.displayCartProducts().length.toString());
+                            if (widget._cartController.displayCartProducts().contains(widget._product)) {
+                              widget._cartController.removeProductFromUserCart(widget._product);
+                              print("No. of items in cart: "+widget._cartController.displayCartProducts().length.toString());
                             } else {
-                              widget.productController.displayCartProducts().add(widget.product);
-                              print("No. of items in cart: "+widget.productController.displayCartProducts().length.toString());
+                              widget._cartController.displayCartProducts().add(widget._product);
+                              print("No. of items in cart: "+widget._cartController.displayCartProducts().length.toString());
                             }}else {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
@@ -130,13 +138,13 @@ class _CustomCardState extends State<CustomCard> {
                 ],
               ),
               Text(
-                widget.product.getQuantity() != 0?"x${widget.product.getQuantity()}":"Out of Stock",
+                widget._product.getQuantity() != 0?"x${widget._product.getQuantity()}":"Out of Stock",
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: widget.product.getQuantity() !=0? Color.fromARGB(255, 204, 189, 60) : Colors.red,
+                      color: widget._product.getQuantity() !=0? Color.fromARGB(255, 204, 189, 60) : Colors.red,
                 ),
               ),
             ],

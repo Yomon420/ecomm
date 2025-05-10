@@ -1,3 +1,4 @@
+import 'package:ecomm/controller/cart_controller.dart';
 import 'package:ecomm/controller/product_controller.dart';
 import 'package:ecomm/views/cart_page.dart';
 import 'package:ecomm/widget/custom_card.dart';
@@ -23,7 +24,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String _selectedItem = "all";
-
+  CartController _cartController = CartController();
   @override
   Widget build(BuildContext context) {
     final List<String> items = [
@@ -89,7 +90,7 @@ class _HomePageState extends State<HomePage> {
               Navigator.push(
                 context,
                 createSlideTransition(
-                  CartPage(cartProducts: widget._productController, allProducts: widget._allProducts))).then((value){
+                  CartPage(CartController: widget._productController, allProducts: widget._allProducts))).then((value){
                     setState(() {});});
             },
           ),
@@ -205,6 +206,7 @@ class _HomePageState extends State<HomePage> {
                           product: product,
                           category: _selectedItem,
                           productController: widget._productController,
+                          cartController: _cartController,
                         );
                       },
                     ),

@@ -1,21 +1,26 @@
-import 'package:ecomm/controller/product_controller.dart';
+import 'package:ecomm/controller/cart_controller.dart';
 import 'package:ecomm/views/product_page.dart';
 import 'package:flutter/material.dart';
 
 import '../models/product.dart';
 
 class CustomCardCart extends StatefulWidget {
-  final Product product;
-  final String category;
-  final ProductController productController;
-  final void Function() onCartUpdate;
+  final Product _product;
+  final String _category;
+  final CartController _cartController;
+  final void Function() _onCartUpdate;
   const CustomCardCart({
     super.key,
-    required this.product,
-    required this.category,
-    required this.productController,
-    required this.onCartUpdate,
-  });
+    required product,
+    required category,
+    required cartController,
+    required onCartUpdate,
+  }) :
+  _product = product,
+  _category = category,
+  _cartController = cartController,
+  _onCartUpdate = onCartUpdate
+  ;
 
   @override
   State<CustomCardCart> createState() => _CustomCardCartState();
@@ -23,9 +28,9 @@ class CustomCardCart extends StatefulWidget {
 
 class _CustomCardCartState extends State<CustomCardCart> {
   Color changeColor() {
-    var prod = widget.productController.displayCartProducts();
+    var prod = widget._cartController.displayCartProducts();
     for (int i = 0; i < prod.length; i++) {
-      if (prod[i].getTitle() == widget.product.getTitle()) {
+      if (prod[i].getTitle() == widget._product.getTitle()) {
         return Colors.red;
       }
     }
@@ -38,7 +43,7 @@ class _CustomCardCartState extends State<CustomCardCart> {
       onTap: () {
         Navigator.push(
           context, 
-          MaterialPageRoute(builder: (context)=>ProductPage(product: widget.product,productController: widget.productController,))
+          MaterialPageRoute(builder: (context)=>ProductPage(product: widget._product,cartController: widget._cartController,))
           ).then((value){
             setState(() {
               print("Update home page");
@@ -73,7 +78,7 @@ class _CustomCardCartState extends State<CustomCardCart> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(12),
                   child: Image.network(
-                    widget.product.getImageUrl(),
+                    widget._product.getImageUrl(),
                     height: 120,
                     width: double.infinity,
                     fit: BoxFit.fitHeight,
@@ -82,7 +87,7 @@ class _CustomCardCartState extends State<CustomCardCart> {
               ),
               const SizedBox(height: 16),
               Text(
-                widget.product.getTitle(),
+                widget._product.getTitle(),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
@@ -97,7 +102,7 @@ class _CustomCardCartState extends State<CustomCardCart> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "\$${widget.product.getPrice()}",
+                    "\$${widget._product.getPrice()}",
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -112,13 +117,13 @@ class _CustomCardCartState extends State<CustomCardCart> {
                     child: IconButton(
                       onPressed: () {
                         setState(() {
-                          if(widget.product.getQuantity() != 0){
-                            if (widget.productController.displayCartProducts().contains(widget.product)) {
-                              widget.productController.removeProductFromUserCart(widget.product);
-                              print("No. of items in cart: "+widget.productController.displayCartProducts().length.toString());
+                          if(widget._product.getQuantity() != 0){
+                            if (widget._cartController.displayCartProducts().contains(widget._product)) {
+                              widget._cartController.removeProductFromUserCart(widget._product);
+                              print("No. of items in cart: "+widget._cartController.displayCartProducts().length.toString());
                             } else {
-                              widget.productController.displayCartProducts().add(widget.product);
-                              print("No. of items in cart: "+widget.productController.displayCartProducts().length.toString());
+                              widget._cartController.displayCartProducts().add(widget._product);
+                              print("No. of items in cart: "+widget._cartController.displayCartProducts().length.toString());
                             }
                           }
                         });
@@ -140,29 +145,29 @@ class _CustomCardCartState extends State<CustomCardCart> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      widget.product.getQuantity() != 0? "x${widget.product.getQuantity()}" : "Out of Stock",
+                      widget._product.getQuantity() != 0? "x${widget._product.getQuantity()}" : "Out of Stock",
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                      style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: widget.product.getQuantity() != 0? Colors.amber : Colors.red,
+                            color: widget._product.getQuantity() != 0? Colors.amber : Colors.red,
                       ),
                     ),
                     IconButton(
                       onPressed: (){
                         setState(() {
-                          if(widget.product.getCount() > 0){
-                            var count = widget.product.getCount();
-                            widget.product.setCount(--count);
-                            widget.onCartUpdate();
+                          if(widget._product.getCount() > 0){
+                            var count = widget._product.getCount();
+                            widget._product.setCount(--count);
+                            widget._onCartUpdate();
                           }
                         });
                       },
                       icon: Icon(Icons.remove)
                       ),
                     Text(
-                      "${widget.product.getCount()}",
+                      "${widget._product.getCount()}",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
@@ -170,10 +175,10 @@ class _CustomCardCartState extends State<CustomCardCart> {
                     IconButton(
                       onPressed: (){
                         setState(() {
-                          if(widget.product.getQuantity() > widget.product.getCount()){
-                            var count = widget.product.getCount();
-                            widget.product.setCount(++count);
-                            widget.onCartUpdate();
+                          if(widget._product.getQuantity() > widget._product.getCount()){
+                            var count = widget._product.getCount();
+                            widget._product.setCount(++count);
+                            widget._onCartUpdate();
                           }
                         });
                       },

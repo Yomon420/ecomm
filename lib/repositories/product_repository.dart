@@ -15,27 +15,27 @@ class ProductRepository {
   }
 
   // Add an item to the cart
-  void addProductToCart(Product product) {
-    _database.addToCart(product);
-  }
+  // void addProductToCart(Product product) {
+  //   _database.addToCart(product);
+  // }
 
-  // Remove an item from the cart
-  void removeProductFromCart(Product product) {
-    _database.removeFromCart(product);
-  }
+  // // Remove an item from the cart
+  // void removeProductFromCart(Product product) {
+  //   _database.removeFromCart(product);
+  // }
 
-  // Check if the cart contains any products
-  bool checkProductInCart(Product product){
-    return _database.checkCart(product);
-  }
+  // // Check if the cart contains any products
+  // bool checkProductInCart(Product product){
+  //   return _database.checkCart(product);
+  // }
 
-  // Display all products inside the cart
-  List<Product> displayCartProducts() {
-    return _database.getCartProducts();
-  }
+  // // Display all products inside the cart
+  // List<Product> displayCartProducts() {
+  //   return _database.getCartProducts();
+  // }
 
-  // Remove product from the cart
-  void removeCart(){
-    _database.emptyCart();
-  }
+  // // Remove product from the cart
+  // void removeCart(){
+  //   _database.emptyCart();
+  // }
 }
