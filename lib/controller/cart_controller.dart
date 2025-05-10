@@ -5,16 +5,6 @@ import '../models/product.dart';
 class CartController {
   final ProductRepository _productRepository = ProductRepository();
 
-  // Method to get products
-  // Future<List<Product>> getAllProducts() async {
-  //   try {
-  //     return await _productRepository.getProducts();
-  //   } catch (e) {
-  //     // Handle errors (maybe show error message to UI)
-  //     throw Exception('Error fetching products: $e');
-  //   }
-  // }
-
   void addProductToUserCart(Product product) {
     _productRepository.addProductToCart(product);
   }
@@ -62,14 +52,4 @@ class CartController {
     }
     return false;
   }
-
-  // Future<List<Product>> getProductByCategory(
-  //   Future<List<Product>> productsFuture,
-  //   String category,
-  // ) async {
-  //   final products = await productsFuture;
-  //   return category != "all"
-  //       ? products.where((product) => product.getCategory() == category).toList()
-  //       : products;
-  // }
 }
