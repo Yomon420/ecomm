@@ -62,7 +62,7 @@ class _CustomCardState extends State<CustomCard> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(12),
                   child: Image.network(
-                    widget.product.imageUrl,
+                    widget.product.getImageUrl(),
                     height: 120,
                     width: double.infinity,
                     fit: BoxFit.fitHeight,
@@ -71,7 +71,7 @@ class _CustomCardState extends State<CustomCard> {
               ),
               const SizedBox(height: 16),
               Text(
-                widget.product.title,
+                widget.product.getTitle(),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
@@ -86,7 +86,7 @@ class _CustomCardState extends State<CustomCard> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "\$${widget.product.price}",
+                    "\$${widget.product.getPrice()}",
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -101,7 +101,7 @@ class _CustomCardState extends State<CustomCard> {
                     child: IconButton(
                       onPressed: () {
                         setState(() {
-                          if(widget.product.quantity != 0)
+                          if(widget.product.getQuantity() != 0)
                           {
                             if (widget.productController.displayCartProducts().contains(widget.product)) {
                               widget.productController.removeProductFromUserCart(widget.product);
@@ -131,13 +131,13 @@ class _CustomCardState extends State<CustomCard> {
                 ],
               ),
               Text(
-                widget.product.quantity != 0?"x${widget.product.quantity}":"Out of Stock",
+                widget.product.getQuantity() != 0?"x${widget.product.getQuantity()}":"Out of Stock",
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: widget.product.quantity !=0? Color.fromARGB(255, 204, 189, 60) : Colors.red,
+                      color: widget.product.getQuantity() !=0? Color.fromARGB(255, 204, 189, 60) : Colors.red,
                 ),
               ),
             ],

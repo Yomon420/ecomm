@@ -26,7 +26,7 @@ class _CustomCardCartState extends State<CustomCardCart> {
     var prod = widget.productController.displayCartProducts();
     print(prod.length);
     for (int i = 0; i < prod.length; i++) {
-      if (prod[i].title == widget.product.title) {
+      if (prod[i].getTitle() == widget.product.getTitle()) {
         return Colors.red;
       }
     }
@@ -74,7 +74,7 @@ class _CustomCardCartState extends State<CustomCardCart> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(12),
                   child: Image.network(
-                    widget.product.imageUrl,
+                    widget.product.getImageUrl(),
                     height: 120,
                     width: double.infinity,
                     fit: BoxFit.fitHeight,
@@ -83,7 +83,7 @@ class _CustomCardCartState extends State<CustomCardCart> {
               ),
               const SizedBox(height: 16),
               Text(
-                widget.product.title,
+                widget.product.getTitle(),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
@@ -98,7 +98,7 @@ class _CustomCardCartState extends State<CustomCardCart> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "\$${widget.product.price}",
+                    "\$${widget.product.getPrice()}",
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -113,7 +113,7 @@ class _CustomCardCartState extends State<CustomCardCart> {
                     child: IconButton(
                       onPressed: () {
                         setState(() {
-                          if(widget.product.quantity != 0){
+                          if(widget.product.getQuantity() != 0){
                             if (widget.productController.displayCartProducts().contains(widget.product)) {
                               widget.productController.removeProductFromUserCart(widget.product);
                               print(widget.productController.displayCartProducts().length);
@@ -141,20 +141,21 @@ class _CustomCardCartState extends State<CustomCardCart> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      widget.product.quantity != 0? "x${widget.product.quantity}" : "Out of Stock",
+                      widget.product.getQuantity() != 0? "x${widget.product.getQuantity()}" : "Out of Stock",
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                      style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: widget.product.quantity != 0? Colors.amber : Colors.red,
+                            color: widget.product.getQuantity() != 0? Colors.amber : Colors.red,
                       ),
                     ),
                     IconButton(
                       onPressed: (){
                         setState(() {
-                          if(widget.product.count > 0){
-                            widget.product.count--;
+                          if(widget.product.getCount() > 0){
+                            var count = widget.product.getCount();
+                            widget.product.setCount(--count);
                             widget.onCartUpdate();
                           }
                         });
@@ -162,7 +163,7 @@ class _CustomCardCartState extends State<CustomCardCart> {
                       icon: Icon(Icons.remove)
                       ),
                     Text(
-                      "${widget.product.count}",
+                      "${widget.product.getCount()}",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
@@ -170,8 +171,9 @@ class _CustomCardCartState extends State<CustomCardCart> {
                     IconButton(
                       onPressed: (){
                         setState(() {
-                          if(widget.product.quantity > widget.product.count){
-                            widget.product.count++;
+                          if(widget.product.getQuantity() > widget.product.getCount()){
+                            var count = widget.product.getCount();
+                            widget.product.setCount(++count);
                             widget.onCartUpdate();
                           }
                         });

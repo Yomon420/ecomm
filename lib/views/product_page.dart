@@ -28,18 +28,18 @@ class _ProductPageState extends State<ProductPage> {
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                widget.product.category,
+                widget.product.getCategory(),
                 style: TextStyle(fontSize: 15),
               ),
             ),
             Text(
-              widget.product.title,
+              widget.product.getTitle(),
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
             ),
             const SizedBox(height: 20),
             ClipRRect(
               borderRadius: BorderRadius.circular(20),
-              child: Image.network(widget.product.imageUrl, scale: 5),
+              child: Image.network(widget.product.getImageUrl(), scale: 5),
             ),
             const SizedBox(height: 20),
             Row(
@@ -47,7 +47,7 @@ class _ProductPageState extends State<ProductPage> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "\$${widget.product.price}",
+                    "\$${widget.product.getPrice()}",
                     style: TextStyle(
                       color: Colors.green,
                       fontWeight: FontWeight.bold,
@@ -58,9 +58,9 @@ class _ProductPageState extends State<ProductPage> {
                 Padding(
                   padding: EdgeInsets.only(left: 8.0),
                   child: Text(
-                    widget.product.quantity != 0? "x${widget.product.quantity}" : "Out of Stock",
+                    widget.product.getQuantity() != 0? "x${widget.product.getQuantity()}" : "Out of Stock",
                     style: TextStyle(
-                      color: widget.product.quantity != 0? const Color.fromARGB(255, 183, 169, 44) : Colors.red,
+                      color: widget.product.getQuantity() != 0? const Color.fromARGB(255, 183, 169, 44) : Colors.red,
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
                     ),
@@ -73,7 +73,7 @@ class _ProductPageState extends State<ProductPage> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(
-                          "⭐${widget.product.rating}",
+                          "⭐${widget.product.getRating()}",
                           style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
@@ -83,7 +83,7 @@ class _ProductPageState extends State<ProductPage> {
                         Padding(
                           padding: const EdgeInsets.only(left: 3.0),
                           child: Text(
-                            "(${widget.product.ratingCount})",
+                            "(${widget.product.getRatingCount()})",
                             style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
@@ -112,7 +112,7 @@ class _ProductPageState extends State<ProductPage> {
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                widget.product.description,
+                widget.product.getDescription(),
                 style: TextStyle(
                   color: const Color.fromARGB(255, 0, 0, 0),
                   fontWeight: FontWeight.bold,
@@ -143,7 +143,7 @@ class _ProductPageState extends State<ProductPage> {
                         ),
                         onPressed: () {
                           setState(() {
-                            if(widget.product.quantity != 0){
+                            if(widget.product.getQuantity() != 0){
                               if (widget.productController.checkProductInUserCart(
                                 widget.product,
                               )) {

@@ -52,7 +52,7 @@ class ProductDatabase {
 
   void emptyCart(){
     for(var product in _cartProducts){
-      product.count = 0;
+      product.setCount(0);
     }
     _cartProducts = [];
   }
