@@ -1,5 +1,5 @@
 import 'package:ecomm/models/cart_model.dart';
-import 'package:ecomm/models/product.dart';
+import 'package:ecomm/models/product_model.dart';
 
 class CartController {
   final CartModel _cartModel = CartModel();

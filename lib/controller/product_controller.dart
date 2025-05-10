@@ -1,6 +1,6 @@
 import 'package:ecomm/repositories/product_repository.dart';
 
-import '../models/product.dart';
+import '../models/product_model.dart';
 
 class ProductController {
   final ProductRepository _productRepository = ProductRepository();

@@ -1,5 +1,5 @@
 import 'package:ecomm/controller/cart_controller.dart';
-import 'package:ecomm/models/product.dart';
+import 'package:ecomm/models/product_model.dart';
 import 'package:flutter/material.dart';
 
 class ProductPage extends StatefulWidget {

@@ -1,4 +1,4 @@
-import 'package:ecomm/models/product.dart';
+import 'package:ecomm/models/product_model.dart';
 
 class CartModel {
   List<Product> _cartProducts = [];

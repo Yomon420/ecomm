@@ -2,7 +2,7 @@ import 'package:ecomm/controller/cart_controller.dart';
 import 'package:ecomm/views/product_page.dart';
 import 'package:flutter/material.dart';
 
-import '../models/product.dart';
+import '../models/product_model.dart';
 
 class CustomCardCart extends StatefulWidget {
   final Product _product;

@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http; // To make HTTP requests
-import '../models/product.dart'; // Product model file
+import '../models/product_model.dart'; // Product model file
 
 class ProductDatabase {
   // The API URL
