@@ -6,11 +6,14 @@ import 'package:flutter/material.dart';
 class CartPage extends StatefulWidget {
   const CartPage({
     super.key,
-    required this.cartProducts,
-    required this.allProducts,
-  });
-  final ProductController cartProducts;
-  final allProducts;
+    required cartProducts,
+    required allProducts,
+  }) : 
+  _cartProducts = cartProducts,
+  _allProducts = allProducts
+  ;
+  final ProductController _cartProducts;
+  final _allProducts;
 
   @override
   State<CartPage> createState() => _CartPageState();
@@ -48,7 +51,7 @@ class _CartPageState extends State<CartPage> {
             onPressed: () {
               setState(() {
                 refreshPage();
-                widget.cartProducts;
+                widget._cartProducts;
               });
             },
           ),
@@ -74,14 +77,14 @@ class _CartPageState extends State<CartPage> {
                           childAspectRatio: screenWidth / screenHeight * 1.3,
                         ),
                         itemCount:
-                            widget.cartProducts.displayCartProducts().length,
+                            widget._cartProducts.displayCartProducts().length,
                         itemBuilder: (context, index) {
                           final product =
-                              widget.cartProducts.displayCartProducts()[index];
+                              widget._cartProducts.displayCartProducts()[index];
                           return CustomCardCart(
                             product: product,
                             category: "all",
-                            productController: widget.cartProducts,
+                            productController: widget._cartProducts,
                             onCartUpdate: (){
                               setState(() {
                                 
@@ -106,7 +109,7 @@ class _CartPageState extends State<CartPage> {
                           ),
                         ),
                         Text(
-                          "\$${widget.cartProducts.getTotalPrice()}",
+                          "\$${widget._cartProducts.getTotalPrice()}",
                           style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -131,15 +134,15 @@ class _CartPageState extends State<CartPage> {
                               ),
                             ),
                             onPressed: () {
-                              if (widget.cartProducts.checkCartCount()) {
+                              if (widget._cartProducts.checkCartCount()) {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder:
                                         (context) => Intro(
                                           productController:
-                                              widget.cartProducts,
-                                          allProducts: widget.allProducts,
+                                              widget._cartProducts,
+                                          allProducts: widget._allProducts,
                                         ),
                                   ),
                                 );

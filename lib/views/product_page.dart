@@ -5,11 +5,14 @@ import 'package:flutter/material.dart';
 class ProductPage extends StatefulWidget {
   const ProductPage({
     super.key,
-    required this.product,
-    required this.productController,
-  });
-  final Product product;
-  final ProductController productController;
+    required product,
+    required productController,
+  }) : 
+  _product = product,
+  _productController = productController
+  ;
+  final Product _product;
+  final ProductController _productController;
   @override
   State<ProductPage> createState() => _ProductPageState();
 }
@@ -28,18 +31,18 @@ class _ProductPageState extends State<ProductPage> {
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                widget.product.getCategory(),
+                widget._product.getCategory(),
                 style: TextStyle(fontSize: 15),
               ),
             ),
             Text(
-              widget.product.getTitle(),
+              widget._product.getTitle(),
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
             ),
             const SizedBox(height: 20),
             ClipRRect(
               borderRadius: BorderRadius.circular(20),
-              child: Image.network(widget.product.getImageUrl(), scale: 5),
+              child: Image.network(widget._product.getImageUrl(), scale: 5),
             ),
             const SizedBox(height: 20),
             Row(
@@ -47,7 +50,7 @@ class _ProductPageState extends State<ProductPage> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "\$${widget.product.getPrice()}",
+                    "\$${widget._product.getPrice()}",
                     style: TextStyle(
                       color: Colors.green,
                       fontWeight: FontWeight.bold,
@@ -58,9 +61,9 @@ class _ProductPageState extends State<ProductPage> {
                 Padding(
                   padding: EdgeInsets.only(left: 8.0),
                   child: Text(
-                    widget.product.getQuantity() != 0? "x${widget.product.getQuantity()}" : "Out of Stock",
+                    widget._product.getQuantity() != 0? "x${widget._product.getQuantity()}" : "Out of Stock",
                     style: TextStyle(
-                      color: widget.product.getQuantity() != 0? const Color.fromARGB(255, 183, 169, 44) : Colors.red,
+                      color: widget._product.getQuantity() != 0? const Color.fromARGB(255, 183, 169, 44) : Colors.red,
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
                     ),
@@ -73,7 +76,7 @@ class _ProductPageState extends State<ProductPage> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(
-                          "⭐${widget.product.getRating()}",
+                          "⭐${widget._product.getRating()}",
                           style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
@@ -83,7 +86,7 @@ class _ProductPageState extends State<ProductPage> {
                         Padding(
                           padding: const EdgeInsets.only(left: 3.0),
                           child: Text(
-                            "(${widget.product.getRatingCount()})",
+                            "(${widget._product.getRatingCount()})",
                             style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
@@ -112,7 +115,7 @@ class _ProductPageState extends State<ProductPage> {
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                widget.product.getDescription(),
+                widget._product.getDescription(),
                 style: TextStyle(
                   color: const Color.fromARGB(255, 0, 0, 0),
                   fontWeight: FontWeight.bold,
@@ -132,8 +135,8 @@ class _ProductPageState extends State<ProductPage> {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor:
-                              widget.productController.checkProductInUserCart(
-                                    widget.product,
+                              widget._productController.checkProductInUserCart(
+                                    widget._product,
                                   )
                                   ? Colors.green
                                   : Colors.white70,
@@ -143,16 +146,16 @@ class _ProductPageState extends State<ProductPage> {
                         ),
                         onPressed: () {
                           setState(() {
-                            if(widget.product.getQuantity() != 0){
-                              if (widget.productController.checkProductInUserCart(
-                                widget.product,
+                            if(widget._product.getQuantity() != 0){
+                              if (widget._productController.checkProductInUserCart(
+                                widget._product,
                               )) {
-                                widget.productController.removeProductFromUserCart(
-                                widget.product,
+                                widget._productController.removeProductFromUserCart(
+                                widget._product,
                               );
                               } else {
-                                widget.productController.addProductToUserCart(
-                                widget.product,
+                                widget._productController.addProductToUserCart(
+                                widget._product,
                               );
                             }}else{
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -165,8 +168,8 @@ class _ProductPageState extends State<ProductPage> {
                           });
                         },
                         child:
-                            !widget.productController.checkProductInUserCart(
-                                  widget.product,
+                            !widget._productController.checkProductInUserCart(
+                                  widget._product,
                             )
                                 ? Text(
                                   'Add To Cart',

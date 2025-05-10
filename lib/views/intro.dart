@@ -3,9 +3,16 @@ import 'package:ecomm/views/home_page.dart';
 import 'package:flutter/material.dart';
 
 class Intro extends StatefulWidget {
-  final ProductController productController;
-  final allProducts;
-  const Intro({super.key, required this.productController, required this.allProducts});
+  final ProductController _productController;
+  final _allProducts;
+  const Intro({
+    super.key,
+    required productController,
+    required allProducts
+    }) : 
+    _allProducts = allProducts,
+    _productController = productController
+    ;
 
   @override
   State<Intro> createState() => _IntroState();
@@ -14,12 +21,12 @@ class Intro extends StatefulWidget {
 class _IntroState extends State<Intro> {
   @override
   void initState() {
-    widget.productController.processProductsAfterCheckout();
-    widget.productController.removeUesrCart();
+    widget._productController.processProductsAfterCheckout();
+    widget._productController.removeUesrCart();
     Future.delayed(Duration(seconds: 3), () {
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => HomePage(productController: widget.productController, allProducts: widget.allProducts)),
+        MaterialPageRoute(builder: (context) => HomePage(productController: widget._productController, allProducts: widget._allProducts)),
         (route) => false,
       );
     });

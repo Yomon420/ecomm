@@ -9,10 +9,10 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
+  
   @override
   Widget build(BuildContext context) {
-    final ProductController _productController = ProductController();
+    final ProductController productController = ProductController();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -22,9 +22,9 @@ class MyApp extends StatelessWidget {
           Theme.of(context).textTheme,
         ),
       ),
-      home: HomePage(productController: _productController,allProducts: _productController.getAllProducts(),),
+      home: HomePage(productController: productController,allProducts: productController.getAllProducts(),),
       initialRoute: HomePage.id,
-      routes: {HomePage.id: (context) => HomePage(productController: _productController,allProducts: _productController.getAllProducts(),)},
+      routes: {HomePage.id: (context) => HomePage(productController: productController,allProducts: productController.getAllProducts(),)},
     );
   }
 }

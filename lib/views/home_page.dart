@@ -7,12 +7,15 @@ import '../models/product.dart';
 class HomePage extends StatefulWidget {
   const HomePage({
     super.key,
-    required this.productController,
-    required this.allProducts,
-  });
-  final ProductController productController;
+    required productController,
+    required allProducts,
+  }) : 
+  _productController = productController,
+  _allProducts = allProducts
+  ;
+  final ProductController _productController;
   static final String id = "Home Page";
-  final allProducts;
+  final _allProducts;
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -72,7 +75,7 @@ class _HomePageState extends State<HomePage> {
             icon: const Icon(Icons.refresh_outlined, color: Color(0xFF2D3142)),
             onPressed: () {
               setState(() {
-                widget.productController;
+                widget._productController;
               });
             },
           ),
@@ -85,7 +88,7 @@ class _HomePageState extends State<HomePage> {
               Navigator.push(
                 context,
                 _createSlideTransition(
-                  CartPage(cartProducts: widget.productController, allProducts: widget.allProducts))).then((value){
+                  CartPage(cartProducts: widget._productController, allProducts: widget._allProducts))).then((value){
                     setState(() {});});
             },
           ),
@@ -94,9 +97,9 @@ class _HomePageState extends State<HomePage> {
       body: FutureBuilder<List<Product>>(
         future:
             _selectedItem.isEmpty
-                ? widget.productController.getAllProducts()
-                : widget.productController.getProductByCategory(
-                  widget.allProducts,
+                ? widget._productController.getAllProducts()
+                : widget._productController.getProductByCategory(
+                  widget._allProducts,
                   _selectedItem,
                 ),
         builder: (context, snapshot) {
@@ -200,7 +203,7 @@ class _HomePageState extends State<HomePage> {
                         return CustomCard(
                           product: product,
                           category: _selectedItem,
-                          productController: widget.productController,
+                          productController: widget._productController,
                         );
                       },
                     ),
