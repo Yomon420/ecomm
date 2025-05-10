@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http; // To make HTTP requests
 import '../models/product_model.dart'; // Product model file
 
 class ProductDatabase {
-  // The API URL
+
   // Method to fetch products from API
   Future<List<Product>> fetchProducts() async {
     try {
