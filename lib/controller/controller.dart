@@ -15,23 +15,27 @@ class ProductController {
     }
   }
 
+  // Add an item to the cart
   void addProductToUserCart(Product product) {
     _productRepository.addProductToCart(product);
   }
 
+  // Remove an item from cart
   void removeProductFromUserCart(Product product) {
     _productRepository.removeProductFromCart(product);
   }
 
-  // For Product Page
+  // Check if the cart contains any products
   bool checkProductInUserCart(Product product){
     return _productRepository.checkProductInCart(product);
   }
 
+  // Display all items inside the cart
   List<Product> displayCartProducts() {
     return _productRepository.displayCartProducts();
   }
 
+  // Get the total price for all items inside the cart
   double getTotalPrice(){
     double total = 0;
     for (var product in _productRepository.displayCartProducts()) {
@@ -41,6 +45,7 @@ class ProductController {
     return total;
   }
 
+  // Minus the number of quantity for each item purchased
   void processProductsAfterCheckout(){
     for (var product in _productRepository.displayCartProducts()) {
       var quantity = product.getQuantity();
@@ -49,11 +54,12 @@ class ProductController {
     }
   }
 
+  // Empty the cart after checkout
   void removeUesrCart(){
     _productRepository.removeCart();
   }
 
-  // check if the cart contains an actual product
+  // Check if the cart contains an actual product
   bool checkCartCount(){
     for(var product in displayCartProducts()){
       if(product.getCount() > 0){
@@ -63,6 +69,7 @@ class ProductController {
     return false;
   }
 
+  // Change the product in the home screen based on category
   Future<List<Product>> getProductByCategory(
     Future<List<Product>> productsFuture,
     String category,
