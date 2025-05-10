@@ -4,7 +4,6 @@ import '../models/product.dart'; // Product model file
 
 class ProductDatabase {
   // The API URL
-  //List<Product> _cartProducts = [];
   // Method to fetch products from API
   Future<List<Product>> fetchProducts() async {
     try {
